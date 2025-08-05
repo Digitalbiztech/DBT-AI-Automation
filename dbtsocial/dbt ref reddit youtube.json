@@ -1,0 +1,1000 @@
+{
+  "active": false,
+  "connections": {
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET TITLE AND DESCRIPTION FROM REALTED N8N VIDEO": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Reddit Posts": {
+      "main": [
+        [
+          {
+            "node": "Filter2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Supabase1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Supabase2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Supabase3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Supabase4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "old news filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "empty new filter": {
+      "main": [
+        [
+          {
+            "node": "prep for db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "old news filter": {
+      "main": [
+        [
+          {
+            "node": "Remove Certain Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Fields 7": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Filter Fields 8": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "google news": {
+      "main": [
+        [
+          {
+            "node": "Filter Fields 7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "google search": {
+      "main": [
+        [
+          {
+            "node": "Filter Fields 8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Certain Content": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase1": {
+      "main": [
+        [
+          {
+            "node": "GET TITLE AND DESCRIPTION FROM REALTED N8N VIDEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase2": {
+      "main": [
+        [
+          {
+            "node": "Fetch Reddit Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase3": {
+      "main": [
+        [
+          {
+            "node": "google news",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase4": {
+      "main": [
+        [
+          {
+            "node": "google search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "empty new filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "prep for db": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-28T04:06:14.325Z",
+  "id": "X5Au1SckEf4ey77r",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "dbt ref reddit youtube",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "05d4f1ac-8fdd-4f2c-9e33-72880fd48d75",
+              "name": "title",
+              "value": "={{ $json.snippet.title }}",
+              "type": "string"
+            },
+            {
+              "id": "65157a95-a7cc-4e8b-8ce1-6c85cfb56e2c",
+              "name": "content",
+              "value": "={{ $json.snippet.description }}",
+              "type": "string"
+            },
+            {
+              "id": "3e339724-2366-47b9-be19-28c5ae439f97",
+              "name": "url",
+              "value": "={{$json[\"id\"][\"videoId\"] ? `https://www.youtube.com/watch?v=${$json[\"id\"][\"videoId\"]}` : \"\"}}",
+              "type": "string"
+            },
+            {
+              "id": "d4c84cb7-4c2c-49c2-9738-e43d214e9aa4",
+              "name": "pubDate",
+              "value": "={{ $json.snippet.publishTime }}",
+              "type": "string"
+            },
+            {
+              "id": "94bbebc9-e4db-48cd-a1ee-f3a047397f1c",
+              "name": "source",
+              "value": "YOUTUBE",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -680,
+        -80
+      ],
+      "id": "2f7a3a71-0f54-43d8-84b1-5eb6c7a4a81f",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "limit": 50,
+        "filters": {
+          "publishedAfter": "={{ new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() }}",
+          "q": "={{ $json.keyword }}",
+          "regionCode": "US"
+        },
+        "options": {
+          "order": "relevance",
+          "safeSearch": "moderate"
+        }
+      },
+      "id": "86fff065-afbc-4874-a00f-b0fceb33498a",
+      "name": "GET TITLE AND DESCRIPTION FROM REALTED N8N VIDEO",
+      "type": "n8n-nodes-base.youTube",
+      "position": [
+        -900,
+        -80
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "Lg4KCDzFmaMEyeo2",
+          "name": "YouTube account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "location": "={{ $json.specific }}",
+        "subreddit": "={{ $json.channel }}",
+        "keyword": "={{ $json.keyword }}",
+        "limit": 40,
+        "additionalFields": {
+          "sort": "hot"
+        }
+      },
+      "id": "ceef96ef-30e8-47c7-9f94-270e6eb8c6c3",
+      "name": "Fetch Reddit Posts",
+      "type": "n8n-nodes-base.reddit",
+      "position": [
+        -1120,
+        120
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "redditOAuth2Api": {
+          "id": "GLKgZUTtfv5N4nB0",
+          "name": "Reddit account dbt digi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f7b31371-3654-48fb-9e6b-29db6ef1215f",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "ai",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "841100bb-197b-406b-a97f-2c36ae29d859",
+              "leftValue": "={{ $json.selftext }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -900,
+        120
+      ],
+      "id": "02cbcfd7-efbc-4094-b547-2ae460feb5a9",
+      "name": "Filter2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "05d4f1ac-8fdd-4f2c-9e33-72880fd48d75",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "65157a95-a7cc-4e8b-8ce1-6c85cfb56e2c",
+              "name": "content",
+              "value": "={{ $json.selftext }}",
+              "type": "string"
+            },
+            {
+              "id": "1ce8c7c4-3277-4920-ae36-e9c06815b5b3",
+              "name": "source",
+              "value": "REDDIT",
+              "type": "string"
+            },
+            {
+              "id": "eeee96a6-9565-4c92-ba83-2856df207193",
+              "name": "url",
+              "value": "https://www.reddit.com/r/ArtificialInteligence/",
+              "type": "string"
+            },
+            {
+              "id": "c2219869-d38b-4c71-8a4c-3ea96a45eb97",
+              "name": "pubDate",
+              "value": "={{ $('Schedule Trigger').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -680,
+        120
+      ],
+      "id": "9e140761-1790-4937-b2c3-651abb416a35",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1740,
+        140
+      ],
+      "id": "0ab94580-da78-4aab-8803-f855fee67cad",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "id": "f0577293-7f17-417c-a273-5dbb44c51341",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        -460,
+        199
+      ],
+      "typeVersion": 3.1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "30d4f694-9378-42b4-b1d5-cbc38fb3e7fe",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              },
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "opinion|rumour|layoff|porn|sex|nsfw|racism|violence|scandal"
+            },
+            {
+              "id": "fdddd55b-19d5-4e87-9586-01653750e807",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              },
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Opinion|Rumour|layoff"
+            },
+            {
+              "id": "12e44449-d6bb-4243-abb7-cfa03a9327c5",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              },
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "layoff|religion|hate|hollywood|terror|clickbait|conspiracy"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "42b7d931-3b10-4828-93d8-a91f8781a423",
+      "name": "Remove Certain Content",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        -20,
+        220
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "model": "mistral-small-latest",
+        "options": {}
+      },
+      "id": "536e2e17-72c1-4b0b-82b6-a7227d47fa2d",
+      "name": "Mistral Cloud Chat Model3",
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "position": [
+        288,
+        440
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "k9FknrnRcIKYNX7T",
+          "name": "Mistral Cloud account 2 dbt rn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "ref_article",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "title",
+              "fieldValue": "={{ $json.title }}"
+            },
+            {
+              "fieldId": "summary",
+              "fieldValue": "={{ $json.content }}"
+            },
+            {
+              "fieldId": "source",
+              "fieldValue": "={{ $json['source '] }}"
+            },
+            {
+              "fieldId": "tag",
+              "fieldValue": "AI"
+            },
+            {
+              "fieldId": "tag",
+              "fieldValue": "AI"
+            },
+            {
+              "fieldId": "date",
+              "fieldValue": "={{ $json.publishedDate }}"
+            },
+            {
+              "fieldId": "category",
+              "fieldValue": "reference"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1016,
+        220
+      ],
+      "id": "527b259f-f3c0-4926-b833-848da4dff26b",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "17227fcf-0aee-4757-bea0-e282e85c9f5b",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        576,
+        220
+      ],
+      "id": "4dad4788-5a0b-433d-b120-4ed094c0242a",
+      "name": "empty new filter"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cc2f0e62-41f4-4710-95b6-767c081eb997",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "d8d69e60-fa18-4af7-9de0-c8fc7f2b68a4",
+              "name": "publishedDate",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            },
+            {
+              "id": "f30dcb27-9416-4881-adfc-d3c9ab68f632",
+              "name": "url",
+              "value": "={{ $json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "7d685189-d42a-474f-916a-c37562c5ffc5",
+              "name": "content",
+              "value": "={{ $json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "78dcfaae-b39b-40f5-b25d-95cfac458953",
+              "name": "source ",
+              "value": "={{ $json.source }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        796,
+        220
+      ],
+      "id": "f7ec660c-adac-4a74-8326-6925b0bfa0b2",
+      "name": "prep for db"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "30d4f694-9378-42b4-b1d5-cbc38fb3e7fe",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              },
+              "leftValue": "={{ $json.pubDate }}",
+              "rightValue": "={{ $today.minus({ days: 7 }) }}"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9be932a7-6e4c-49ab-9357-03d0377ca813",
+      "name": "old news filter",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        -240,
+        220
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2ffe594-180d-4e1d-b869-8056ac67015d",
+              "name": "title",
+              "type": "string",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "87c5a171-9ab9-4043-a72a-32aec218fe63",
+              "name": "pubDate",
+              "type": "string",
+              "value": "={{ $json.pubDate }}"
+            },
+            {
+              "id": "978b05c9-6e6b-4a18-bc06-4de785b19413",
+              "name": "url",
+              "type": "string",
+              "value": "={{ $json.link }}"
+            },
+            {
+              "id": "199a5920-72a3-470e-9adf-8252f6ebb37a",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.contentSnippet }}"
+            },
+            {
+              "id": "7f87e823-54f4-4dc6-a9fc-89dc035842c7",
+              "name": "source",
+              "value": "news",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3f494180-a5d7-4b67-b78b-8ca625d2e6a8",
+      "name": "Filter Fields 7",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -820,
+        320
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2ffe594-180d-4e1d-b869-8056ac67015d",
+              "name": "title",
+              "type": "string",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "87c5a171-9ab9-4043-a72a-32aec218fe63",
+              "name": "pubDate",
+              "type": "string",
+              "value": "={{ $json.pubDate }}"
+            },
+            {
+              "id": "978b05c9-6e6b-4a18-bc06-4de785b19413",
+              "name": "url",
+              "type": "string",
+              "value": "={{ $json.link }}"
+            },
+            {
+              "id": "199a5920-72a3-470e-9adf-8252f6ebb37a",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.contentSnippet }}"
+            },
+            {
+              "id": "94c137cf-2397-4453-98d1-83cf1c0a1750",
+              "name": "source",
+              "value": "search",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "920be189-0edd-4d4c-aedd-a6604a55e781",
+      "name": "Filter Fields 8",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -780,
+        520
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -1000,
+        320
+      ],
+      "id": "4da0164e-6312-4cdd-8090-796d06f7c737",
+      "name": "google news"
+    },
+    {
+      "parameters": {
+        "url": "https://fetchrss.com/feed/aHYDYUpDwo4zaHYFIceb2W-C.rss",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -1000,
+        520
+      ],
+      "id": "114be391-d7ef-4c43-ad68-2adf57b2f05a",
+      "name": "google search"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.title }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "non tech",
+              "description": "any non-tech or ai related articles even article words or topic not suitable for working setting like pop, hollywood etc"
+            },
+            {
+              "category": "tech",
+              "description": "tech related educational and knowledgeable artilces "
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "Please classify the text provided by the user into one of the following categories: {categories}, and use the provided formatting instructions below. Don't explain, and only output the json."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        200,
+        220
+      ],
+      "id": "75c7b658-93a1-4db0-a99a-dd4715390166",
+      "name": "Text Classifier1"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "source_ref",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "platform_name",
+              "condition": "eq",
+              "keyValue": "Youtube"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1120,
+        -80
+      ],
+      "id": "f50b2db5-bf5e-484b-91e1-025d55275f3d",
+      "name": "Supabase1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "source_ref",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "platform_name",
+              "condition": "eq",
+              "keyValue": "reddit"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1340,
+        120
+      ],
+      "id": "6f8026b1-843a-4ed6-8896-2206973b67a3",
+      "name": "Supabase2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "source_ref",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "platform_name",
+              "condition": "eq",
+              "keyValue": "news"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1180,
+        320
+      ],
+      "id": "212fde70-cbf6-4675-837e-202e22142a9f",
+      "name": "Supabase3",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "source_ref",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "platform_name",
+              "condition": "eq",
+              "keyValue": "search"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1180,
+        520
+      ],
+      "id": "410ca69a-ec25-4809-b248-1c9474129695",
+      "name": "Supabase4",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-28T06:17:49.000Z",
+  "versionId": "a0db6a5d-4c96-41b6-b5af-abc5a5d28de5"
+}

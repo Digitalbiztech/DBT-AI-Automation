@@ -1,0 +1,579 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LinkedIn": {
+      "main": [
+        [
+          {
+            "node": "Supabase1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LinkedIn1": {
+      "main": [
+        [
+          {
+            "node": "Supabase2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-28T07:17:07.006Z",
+  "id": "TgI1estlJfeFzRw3",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "posting",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1340,
+        360
+      ],
+      "id": "38501344-2762-43e5-b45a-47dfad323a8d",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "schedulepost",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "time_of_posting",
+              "condition": "lte",
+              "keyValue": "={{ $json.timestamp }}"
+            },
+            {
+              "keyName": "status",
+              "condition": "eq",
+              "keyValue": "approved"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1180,
+        360
+      ],
+      "id": "89865112-705c-4252-9dff-4617ed28c881",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "ZTphelMvjj",
+        "text": "={{ $json.post }}",
+        "shareMediaCategory": "IMAGE",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        360,
+        320
+      ],
+      "id": "161d02b0-d720-4126-b006-fe32d53155db",
+      "name": "LinkedIn",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "5Mtt6Ml6y4WUa0hy",
+          "name": "LinkedIn account 2 test dbt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        20,
+        360
+      ],
+      "id": "d9566e46-9c41-4eca-bb08-ba4c0d1fce2a",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(item => {\n  const markdown = item.json.image_markdown;\n\n  // Log the markdown to check what it contains (for debugging)\n  console.log(\"Markdown:\", markdown);\n\n  // Use a more precise regex to match only image URLs in markdown format ![alt](url)\n  const match = markdown.match(/!\\[.*?\\]\\((.*?)\\)/);\n\n  const url = match ? match[1] : null;\n\n  return {\n    json: {\n      url\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -140,
+        360
+      ],
+      "id": "25610a2b-dcb0-42cb-9a93-750da7548b13",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "content": "gets post from DB ",
+        "height": 400,
+        "width": 260
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1220,
+        220
+      ],
+      "typeVersion": 1,
+      "id": "59117b24-ebd0-49af-8483-ff658dff8dfc",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "schedulepost",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Supabase').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "posted"
+            },
+            {
+              "fieldId": "urn",
+              "fieldValue": "={{ $json.urn }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        520,
+        320
+      ],
+      "id": "93601239-4bbe-4f45-9c17-a943ce3dd6e4",
+      "name": "Supabase1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1000,
+        360
+      ],
+      "id": "d0d6e448-7302-407d-bc03-6c4dbd283c38",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9416adb8-989f-4fef-8738-0dc154abc3a8",
+              "name": "post",
+              "value": "={{ $json.post }}",
+              "type": "string"
+            },
+            {
+              "id": "9803cb19-caa0-402c-bd7a-7ff29af0aa69",
+              "name": "image_markdown",
+              "value": "={{ $json.image_markdown }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -300,
+        360
+      ],
+      "id": "fc90706c-3f1e-4824-a650-f20eaf75199e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d64df695-f465-4fa3-a246-32593426aee7",
+              "leftValue": "={{ $json.image_markdown }}",
+              "rightValue": "qpmrmtlfwlixlplwpllz",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -760,
+        360
+      ],
+      "id": "6ee86f63-9b45-4971-bfca-03e4ec6df9c1",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "person": "ZTphelMvjj",
+        "text": "={{ $json.post }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "46bcbf09-3e02-4394-b6ec-09a42a1f2683",
+      "name": "LinkedIn1",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "5Mtt6Ml6y4WUa0hy",
+          "name": "LinkedIn account 2 test dbt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "schedulepost",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Supabase').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "posted"
+            },
+            {
+              "fieldId": "urn",
+              "fieldValue": "={{ $json.urn }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        180,
+        0
+      ],
+      "id": "082944d5-ddf2-4e0b-bf99-79d0cefbcd8a",
+      "name": "Supabase2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        160,
+        260
+      ],
+      "id": "3a48eafe-f8b6-4227-95c3-b949443d3c90",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "post_queue",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Supabase').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "posted"
+            },
+            {
+              "fieldId": "urn",
+              "fieldValue": "={{ $json.urn }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        380,
+        -140
+      ],
+      "id": "e87e1a3f-00fd-4741-9670-e82b7a3c5ea3",
+      "name": "Supabase3",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "schedulepost",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Supabase').item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "posted"
+            },
+            {
+              "fieldId": "urn",
+              "fieldValue": "={{ $json.urn }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        680,
+        -20
+      ],
+      "id": "cee2923c-938d-4621-8541-93506f982e2f",
+      "name": "Supabase4",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(item => {\n  const markdown = item.json.image_markdown;\n  const match = markdown.match(/\\((.*?)\\)/);\n  const url = match ? match[1] : null;\n\n  return {\n    json: {\n      url\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        20,
+        640
+      ],
+      "id": "f86d26cc-eefb-49a0-a6a9-c717695a2936",
+      "name": "Code1"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-01T15:45:09.000Z",
+  "versionId": "f6e59cd5-e122-44ba-827f-203fdb0c5c2b"
+}

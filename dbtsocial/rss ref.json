@@ -1,0 +1,1240 @@
+{
+  "active": false,
+  "connections": {
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "old news filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ScienceDaily Feed": {
+      "main": [
+        [
+          {
+            "node": "Filter Fields 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AlternativeTo Feed": {
+      "main": [
+        [
+          {
+            "node": "Filter Fields 5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MIT Technology Review Feed": {
+      "main": [
+        [
+          {
+            "node": "Filter Fields 6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Silicone Republic Technology Feed": {
+      "main": [
+        [
+          {
+            "node": "Filter Fields 7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Silicone Republic Science Feed": {
+      "main": [
+        [
+          {
+            "node": "Filter Fields 8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule": {
+      "main": [
+        [
+          {
+            "node": "Supabase1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Supabase2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Supabase3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Supabase5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Supabase4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Supabase6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TheHackersNews* Feed": {
+      "main": [
+        [
+          {
+            "node": "Filter Fields 4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Fields 2": {
+      "main": [
+        []
+      ]
+    },
+    "Filter Fields 3": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Fields 4": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Filter Fields 5": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Filter Fields 6": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Filter Fields 7": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Filter Fields 8": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "salesforce Feed": {
+      "main": [
+        [
+          {
+            "node": "Filter Fields 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "empty new filter": {
+      "main": [
+        [
+          {
+            "node": "prep for db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "old news filter": {
+      "main": [
+        [
+          {
+            "node": "Remove Certain Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase1": {
+      "main": [
+        [
+          {
+            "node": "ScienceDaily Feed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase6": {
+      "main": [
+        [
+          {
+            "node": "Silicone Republic Science Feed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase4": {
+      "main": [
+        [
+          {
+            "node": "Silicone Republic Technology Feed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase5": {
+      "main": [
+        [
+          {
+            "node": "MIT Technology Review Feed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase3": {
+      "main": [
+        [
+          {
+            "node": "AlternativeTo Feed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase2": {
+      "main": [
+        [
+          {
+            "node": "TheHackersNews* Feed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Certain Content": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "empty new filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "prep for db": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-28T06:30:34.402Z",
+  "id": "jyeBVEZKuse2miNf",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "rss ref",
+  "nodes": [
+    {
+      "parameters": {
+        "numberInputs": 6
+      },
+      "id": "a4ec35a1-5220-4ce8-8e4e-4bd6843e9330",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        60,
+        797
+      ],
+      "typeVersion": 3.1
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "id": "c341b3e0-7975-480b-9040-a60eaff11ad5",
+      "name": "ScienceDaily Feed",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "position": [
+        -380,
+        360
+      ],
+      "typeVersion": 1.1,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "id": "9686b9f9-12c8-419f-9e1f-cba700ff777f",
+      "name": "AlternativeTo Feed",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "position": [
+        -380,
+        760
+      ],
+      "typeVersion": 1.1,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "id": "0e45137b-e241-4874-81f9-03bb99e89199",
+      "name": "MIT Technology Review Feed",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "position": [
+        -380,
+        960
+      ],
+      "typeVersion": 1.1,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "30d4f694-9378-42b4-b1d5-cbc38fb3e7fe",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              },
+              "leftValue": "={{ $json.link }}",
+              "rightValue": "opinion|rumour|layoff"
+            },
+            {
+              "id": "fdddd55b-19d5-4e87-9586-01653750e807",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              },
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Opinion|Rumour|layoff|pop"
+            },
+            {
+              "id": "12e44449-d6bb-4243-abb7-cfa03a9327c5",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              },
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "layoff|religion|hate|hollywood"
+            },
+            {
+              "id": "2df9ef75-ea55-4e5b-a78d-e37de85fe8ca",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.content }}",
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ac55b7de-ba37-4199-877a-7e0d07bb73d2",
+      "name": "Remove Certain Content",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        500,
+        860
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "id": "d79a4a2b-39cd-4a93-9d93-c8634ee5d219",
+      "name": "Silicone Republic Technology Feed",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "position": [
+        -380,
+        1160
+      ],
+      "typeVersion": 1.1,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "id": "df3ace8c-5d1b-4f3d-ac23-43012446e8c9",
+      "name": "Silicone Republic Science Feed",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "position": [
+        -380,
+        1360
+      ],
+      "typeVersion": 1.1,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "daysInterval": 3,
+              "triggerAtHour": 12
+            }
+          ]
+        }
+      },
+      "id": "86367ccb-5a24-4003-87cb-ce4dea9052be",
+      "name": "Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        -820,
+        860
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "id": "e2ef183a-2e7e-4d6e-9bda-58643de3a2c7",
+      "name": "TheHackersNews* Feed",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "position": [
+        -380,
+        560
+      ],
+      "typeVersion": 1.1,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput",
+      "notes": "*Not to be confused with \"Hacker News\" from ycombinator."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2ffe594-180d-4e1d-b869-8056ac67015d",
+              "name": "title",
+              "type": "string",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "f43db298-a42f-4391-83b9-c49c5d8c03ae",
+              "name": "pubDate",
+              "type": "string",
+              "value": "={{ $json.pubDate }}"
+            },
+            {
+              "id": "978b05c9-6e6b-4a18-bc06-4de785b19413",
+              "name": "link",
+              "type": "string",
+              "value": "={{ $json.link }}"
+            },
+            {
+              "id": "199a5920-72a3-470e-9adf-8252f6ebb37a",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.content }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ecdb763c-f706-406a-b020-e1cfdf4f2f27",
+      "name": "Filter Fields 2",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        220,
+        20
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2ffe594-180d-4e1d-b869-8056ac67015d",
+              "name": "title",
+              "type": "string",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "87c5a171-9ab9-4043-a72a-32aec218fe63",
+              "name": "pubDate",
+              "type": "string",
+              "value": "={{ $json.pubDate }}"
+            },
+            {
+              "id": "978b05c9-6e6b-4a18-bc06-4de785b19413",
+              "name": "link",
+              "type": "string",
+              "value": "={{ $json.link }}"
+            },
+            {
+              "id": "199a5920-72a3-470e-9adf-8252f6ebb37a",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.content }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d158a262-d950-4f75-b985-8138bef5e598",
+      "name": "Filter Fields 3",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -160,
+        360
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2ffe594-180d-4e1d-b869-8056ac67015d",
+              "name": "title",
+              "type": "string",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "87c5a171-9ab9-4043-a72a-32aec218fe63",
+              "name": "pubDate",
+              "type": "string",
+              "value": "={{ $json.pubDate }}"
+            },
+            {
+              "id": "978b05c9-6e6b-4a18-bc06-4de785b19413",
+              "name": "link",
+              "type": "string",
+              "value": "={{ $json.link }}"
+            },
+            {
+              "id": "199a5920-72a3-470e-9adf-8252f6ebb37a",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.content }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f2bdafcc-6b2d-4a2d-ae5b-1056af4d305c",
+      "name": "Filter Fields 4",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -160,
+        560
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2ffe594-180d-4e1d-b869-8056ac67015d",
+              "name": "title",
+              "type": "string",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "87c5a171-9ab9-4043-a72a-32aec218fe63",
+              "name": "pubDate",
+              "type": "string",
+              "value": "={{ $json.pubDate }}"
+            },
+            {
+              "id": "978b05c9-6e6b-4a18-bc06-4de785b19413",
+              "name": "link",
+              "type": "string",
+              "value": "={{ $json.link }}"
+            },
+            {
+              "id": "199a5920-72a3-470e-9adf-8252f6ebb37a",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.contentSnippet }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1d548cbd-1d53-41bb-ac8d-91b869db8b73",
+      "name": "Filter Fields 5",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -160,
+        760
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2ffe594-180d-4e1d-b869-8056ac67015d",
+              "name": "title",
+              "type": "string",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "87c5a171-9ab9-4043-a72a-32aec218fe63",
+              "name": "pubDate",
+              "type": "string",
+              "value": "={{ $json.pubDate }}"
+            },
+            {
+              "id": "978b05c9-6e6b-4a18-bc06-4de785b19413",
+              "name": "link",
+              "type": "string",
+              "value": "={{ $json.link }}"
+            },
+            {
+              "id": "199a5920-72a3-470e-9adf-8252f6ebb37a",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.content }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d1c86a72-f12f-4852-a30e-2be84e79b53e",
+      "name": "Filter Fields 6",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -160,
+        960
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2ffe594-180d-4e1d-b869-8056ac67015d",
+              "name": "title",
+              "type": "string",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "87c5a171-9ab9-4043-a72a-32aec218fe63",
+              "name": "pubDate",
+              "type": "string",
+              "value": "={{ $json.pubDate }}"
+            },
+            {
+              "id": "978b05c9-6e6b-4a18-bc06-4de785b19413",
+              "name": "link",
+              "type": "string",
+              "value": "={{ $json.link }}"
+            },
+            {
+              "id": "199a5920-72a3-470e-9adf-8252f6ebb37a",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.contentSnippet }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fdc09ab1-6839-478f-a6ed-effb5bed055d",
+      "name": "Filter Fields 7",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -160,
+        1160
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2ffe594-180d-4e1d-b869-8056ac67015d",
+              "name": "title",
+              "type": "string",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "87c5a171-9ab9-4043-a72a-32aec218fe63",
+              "name": "pubDate",
+              "type": "string",
+              "value": "={{ $json.pubDate }}"
+            },
+            {
+              "id": "978b05c9-6e6b-4a18-bc06-4de785b19413",
+              "name": "link",
+              "type": "string",
+              "value": "={{ $json.link }}"
+            },
+            {
+              "id": "199a5920-72a3-470e-9adf-8252f6ebb37a",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.contentSnippet }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "24958459-4273-47af-a3ec-bbcb3fe62ca6",
+      "name": "Filter Fields 8",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -160,
+        1360
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "model": "mistral-small-latest",
+        "options": {}
+      },
+      "id": "112b8638-9b9d-4409-b849-4dc508f2d4c1",
+      "name": "Mistral Cloud Chat Model3",
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "position": [
+        808,
+        1080
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "k9FknrnRcIKYNX7T",
+          "name": "Mistral Cloud account 2 dbt rn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "ref_article",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "title",
+              "fieldValue": "={{ $json.title }}"
+            },
+            {
+              "fieldId": "url",
+              "fieldValue": "={{ $json.link }}"
+            },
+            {
+              "fieldId": "date",
+              "fieldValue": "={{ $json.publishedDate }}"
+            },
+            {
+              "fieldId": "source",
+              "fieldValue": "={{ $json['source '] }}"
+            },
+            {
+              "fieldId": "summary",
+              "fieldValue": "={{ $json.content }}"
+            },
+            {
+              "fieldId": "category",
+              "fieldValue": "ai"
+            },
+            {
+              "fieldId": "tag",
+              "fieldValue": "AI"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1536,
+        860
+      ],
+      "id": "488cc3c3-7209-4dc2-86c3-928042aa8ae4",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://www.salesforce.com/blog/feed",
+        "options": {}
+      },
+      "id": "49020582-e31b-4234-9dec-0300a4ac89e4",
+      "name": "salesforce Feed",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "position": [
+        40,
+        -160
+      ],
+      "typeVersion": 1.1,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "17227fcf-0aee-4757-bea0-e282e85c9f5b",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1096,
+        860
+      ],
+      "id": "82ead593-bd5a-4034-8f35-ebcae8f639dc",
+      "name": "empty new filter"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cc2f0e62-41f4-4710-95b6-767c081eb997",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "d8d69e60-fa18-4af7-9de0-c8fc7f2b68a4",
+              "name": "publishedDate",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            },
+            {
+              "id": "f30dcb27-9416-4881-adfc-d3c9ab68f632",
+              "name": "link",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "7d685189-d42a-474f-916a-c37562c5ffc5",
+              "name": "content",
+              "value": "={{ $json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "78dcfaae-b39b-40f5-b25d-95cfac458953",
+              "name": "source ",
+              "value": "RSS",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1316,
+        860
+      ],
+      "id": "1ba9622b-b6ce-488f-b9cb-4e303ceff797",
+      "name": "prep for db"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "30d4f694-9378-42b4-b1d5-cbc38fb3e7fe",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              },
+              "leftValue": "={{ $json.pubDate }}",
+              "rightValue": "={{ $today.minus({ days: 5 }) }}"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "42fbb4d6-ad6a-47b9-a8d7-50332ee9f7e0",
+      "name": "old news filter",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        280,
+        860
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "source_ref",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "platform_name",
+              "keyValue": "rss1"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        360
+      ],
+      "id": "141b6fa6-0465-495d-ac0c-dc9d6a795c89",
+      "name": "Supabase1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "source_ref",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "platform_name",
+              "keyValue": "rss2"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        560
+      ],
+      "id": "782a83a9-6e56-4f66-a1b2-795eb4eadbf5",
+      "name": "Supabase2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "source_ref",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "platform_name",
+              "keyValue": "rss3"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        760
+      ],
+      "id": "c0a983c1-0ab5-4fdc-914a-e35d2c222cfd",
+      "name": "Supabase3",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "source_ref",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "platform_name",
+              "keyValue": "rss5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        1160
+      ],
+      "id": "a5e0191e-4f96-4898-90de-90343fd1730e",
+      "name": "Supabase4",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "source_ref",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "platform_name",
+              "keyValue": "rss4"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        960
+      ],
+      "id": "f7a0c362-2394-4a1b-b7e7-833df3595b32",
+      "name": "Supabase5",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "source_ref",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "platform_name",
+              "keyValue": "rss6"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        1360
+      ],
+      "id": "5bc3f55b-3036-4281-ab3f-34dda58515fc",
+      "name": "Supabase6",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.title }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "tech ",
+              "description": "only informative technology and ai related that is professional and non-controversial"
+            },
+            {
+              "category": "non tech",
+              "description": "anything nonrelated to tech also even tech that is negative and controversial"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        720,
+        860
+      ],
+      "id": "37c9d6be-3b7f-4073-8541-58085d447f83",
+      "name": "Text Classifier"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-28T06:59:07.000Z",
+  "versionId": "16d1767e-0611-4cee-8551-b45a53207671"
+}

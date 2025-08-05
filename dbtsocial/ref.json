@@ -1,0 +1,125 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-28T07:02:25.140Z",
+  "id": "JQ3HppfhdFaIbYoW",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "ref",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "topic"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -140,
+        80
+      ],
+      "id": "03e2647b-9e65-42ba-abf8-1b1a0621a8a2",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1TwORSFdAlTZAStQOhyJNhUZRp61qrzhg",
+          "mode": "list",
+          "cachedResultName": "refdbt",
+          "cachedResultUrl": "https://drive.google.com/file/d/1TwORSFdAlTZAStQOhyJNhUZRp61qrzhg/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        80,
+        80
+      ],
+      "id": "c992df70-30d0-4f73-afde-f504f8dfbf56",
+      "name": "Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "xS6kSuLaEkasxHtm",
+          "name": "Google Drive account 6 rn dbt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        300,
+        80
+      ],
+      "id": "fdf80790-c6e7-4e8f-90da-e876d4e53e3c",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "content": "get recent articles from drive for faster speed",
+        "height": 280,
+        "width": 500
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "55b698e9-d987-446d-9d30-a23cd6af18e2",
+      "name": "Sticky Note"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-31T11:14:54.000Z",
+  "versionId": "a07b3bf8-41a2-4f22-9cc4-f5ade5dfcd92"
+}

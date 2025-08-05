@@ -1,0 +1,896 @@
+{
+  "active": false,
+  "connections": {
+    "Fetch Reddit Posts": {
+      "main": [
+        [
+          {
+            "node": "Filter2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Aggregate2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge4": {
+      "main": [
+        [
+          {
+            "node": "Aggregate3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch Reddit Posts",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "daily ai",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "tech crunch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "daily ai": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "tech crunch": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "web": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Aggregate2": {
+      "main": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarization Chain": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Aggregate3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-28T07:02:01.952Z",
+  "id": "M7dXdfHZRlDlpcWR",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "instant ref",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "search",
+        "location": "allReddit",
+        "keyword": "=ArtificialInteligence",
+        "limit": 5,
+        "additionalFields": {
+          "sort": "relevance"
+        }
+      },
+      "id": "d87e5aff-a2ef-4d23-95d7-2a28b39c170c",
+      "name": "Fetch Reddit Posts",
+      "type": "n8n-nodes-base.reddit",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true,
+      "credentials": {
+        "redditOAuth2Api": {
+          "id": "GLKgZUTtfv5N4nB0",
+          "name": "Reddit account dbt digi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f7b31371-3654-48fb-9e6b-29db6ef1215f",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "ai",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "841100bb-197b-406b-a97f-2c36ae29d859",
+              "leftValue": "={{ $json.selftext }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "0bf3f70b-4389-47ee-89d2-0b9cca47408d",
+      "name": "Filter2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "05d4f1ac-8fdd-4f2c-9e33-72880fd48d75",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "65157a95-a7cc-4e8b-8ce1-6c85cfb56e2c",
+              "name": "content",
+              "value": "={{ $json.selftext }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        0
+      ],
+      "id": "96261da6-daac-4160-a9f7-48fcf61b9ee8",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "title"
+            },
+            {
+              "fieldToAggregate": "content"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        660,
+        0
+      ],
+      "id": "15be957d-b621-4108-af86-c198a6bd7669",
+      "name": "Aggregate2"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "topic"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -220,
+        1160
+      ],
+      "id": "e79bbd37-4ea0-406b-8765-84adfa865d40",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "model": "mistral-small-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        580,
+        560
+      ],
+      "id": "5542ae05-7cdb-48d5-a6b8-a6253a1feb22",
+      "name": "Mistral Cloud Chat Model",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "k9FknrnRcIKYNX7T",
+          "name": "Mistral Cloud account 2 dbt rn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1480,
+        400
+      ],
+      "id": "4d3b499e-f11d-441a-a664-89a4c65bc978",
+      "name": "Merge4"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1660,
+        400
+      ],
+      "id": "83ab87f4-cf60-4d09-80fb-5c64d3a896dc",
+      "name": "Aggregate3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9da7178b-a936-49ff-b433-140ae2a70cd3",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2260,
+        400
+      ],
+      "id": "7fbb0a84-db9c-46eb-83e0-ed5cdc389245",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a5e7b1e0-e259-47e4-b654-728f3ae4da10",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "8ee7c875-0fe7-42de-a96d-b7f1e8b22868",
+              "name": "content",
+              "value": "={{ $json.contentSnippet }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        120,
+        580
+      ],
+      "id": "07e8ed70-da84-41e6-be8b-cd1fe17f2071",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "function stripHtml(html) {\n  if (!html) return '';\n  return html\n    .replace(/<[^>]*>/g, '')         // Remove HTML tags\n    .replace(/&gt;/g, '>')           // Decode >\n    .replace(/&lt;/g, '<')           // Decode <\n    .replace(/&amp;/g, '&')          // Decode &\n    .replace(/&#x27;/g, \"'\")         // Decode apostrophe\n    .replace(/&quot;/g, '\"')         // Decode quotes\n    .replace(/&#x2F;/g, '/')         // Decode slash\n    .replace(/\\s+/g, ' ')            // Collapse extra spaces\n    .trim();\n}\n\nreturn items.map(item => {\n  const i = item.json;\n\n  const title = stripHtml(i.title || '');\n  const snippet = stripHtml(i.contentSnippet || i.content || '');\n\n  if (title && snippet) {\n    return {\n      json: {\n        title,\n        value: snippet\n      }\n    };\n  }\n\n  return null;\n}).filter(Boolean);\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        120,
+        820
+      ],
+      "id": "2adc4395-136b-40fa-a826-896968b25015",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "52176919-3790-489f-af35-21a439bc9587",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "AI",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            },
+            {
+              "id": "9b5ebff6-3243-4e8f-b834-dfd5502b589f",
+              "leftValue": "={{ $json.value }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        340,
+        820
+      ],
+      "id": "a3dc69da-5f1c-4701-942c-7ff17166ce4e",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "47778cd8-503c-49d3-9155-d1e81d993eea",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "ai",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            },
+            {
+              "id": "4f54181f-3292-4822-a93b-e8f210925ed9",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "AI",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        340,
+        580
+      ],
+      "id": "3b841e9e-b8fd-43b7-b1ae-3756c76e6e11",
+      "name": "Filter1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        560,
+        720
+      ],
+      "id": "4db34884-bef7-4e15-9db1-632535757b79",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "title"
+            },
+            {
+              "fieldToAggregate": "content"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        780,
+        720
+      ],
+      "id": "ba50471e-5ce6-490a-acf8-5305fd57c222",
+      "name": "Aggregate1"
+    },
+    {
+      "parameters": {
+        "toolDescription": "search on internet for ai related latest news and trends \n",
+        "method": "POST",
+        "url": "https://api.tavily.com/search",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Authorization",
+              "valueProvider": "fieldValue",
+              "value": "Bearer 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"
+            },
+            {
+              "name": "Content-Type"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "model",
+        "optimizeResponse": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        920,
+        560
+      ],
+      "id": "722c19a5-a080-436d-8f91-315432ad2b72",
+      "name": "web"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        700
+      ],
+      "id": "ed6ffe8c-5fec-430a-937c-a37bee7c5870",
+      "name": "Mistral Cloud Chat Model1",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "k9FknrnRcIKYNX7T",
+          "name": "Mistral Cloud account 2 dbt rn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "mistral-small-2506",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        880,
+        220
+      ],
+      "id": "b5c8c4be-87cd-4e4f-b26d-34201b760109",
+      "name": "Mistral Cloud Chat Model2",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "k9FknrnRcIKYNX7T",
+          "name": "Mistral Cloud account 2 dbt rn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "fileId": {
+          "__rl": true,
+          "value": "1TwORSFdAlTZAStQOhyJNhUZRp61qrzhg",
+          "mode": "list",
+          "cachedResultName": "refdbt",
+          "cachedResultUrl": "https://drive.google.com/file/d/1TwORSFdAlTZAStQOhyJNhUZRp61qrzhg/view?usp=drivesdk"
+        },
+        "changeFileContent": true,
+        "newUpdatedFileName": "refdbt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2720,
+        400
+      ],
+      "id": "87334b03-1eb5-4d7a-9b68-8eebfc69d764",
+      "name": "Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "xS6kSuLaEkasxHtm",
+          "name": "Google Drive account 6 rn dbt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        2480,
+        400
+      ],
+      "id": "b5f0b493-358c-4901-9541-ae08969be1d6",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 5
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -660,
+        380
+      ],
+      "id": "7f099016-6e1a-4edf-a536-c2c72593211d",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://dailyai.com/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -100,
+        580
+      ],
+      "id": "9f113e4c-9366-4b44-b900-c8029403a49e",
+      "name": "daily ai"
+    },
+    {
+      "parameters": {
+        "url": "https://techcrunch.com/feed/",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -100,
+        820
+      ],
+      "id": "8776f0fd-fd76-460c-ad45-763d7e51f86b",
+      "name": "tech crunch"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Artificial Inteligence",
+        "options": {
+          "systemMessage": "# Overview\nYou are an AI web scraper and reference collector.  \nYour job is to extract the most relevant and recent information from the internet based on the user’s query.\n\n## Tools\nweb - Use this to search the internet and collect reliable, real-time reference content.\n\n## Instructions\n- Your objective is to extract the **top 10 most recent news stories or updates** related to the **user query**.\n- Use deep and comprehensive search (not surface-level).\n- Use the `web` tool with advanced parameters to get high-quality, up-to-date results.\n\n-IMPORTANT:\n- Do not generate generic or vague content.\n- Use recent, real-world AI trends (from articles,Trends etc.) search for latest trends and news.\n- Make each message **catchy, focused, and business-useful**.\n- Assume your audience is a busy founder, product manager, or ops lead.\n\nWhen crafting the post:\n- Use the current topic to anchor the post\n- Highlight what’s new, surprising, or valuable and informative\n- Always keep the message tight and punchy (600 characters max)\n\n\n\n## Tool Format\nUse the `web` tool in the following format:\n\n```json\n{\n  \"query\": \"{query}\",\n  \"topic\": \"general\",\n  \"search_depth\": \"advanced\",\n  \"max_results\": 20,\n  \"include_answer\": true,\n  \"include_raw_content\": false,\n  \"include_images\": false,\n  \"include_image_descriptions\": false,\n  \"include_domains\": [],\n  \"exclude_domains\": [\"\"]\n}\n\n##OUTPUT \ntopic  and its summary withs and stats and trends \n\nexample {\nExciting news! The USDA is embracing the power of intelligent automation to streamline processes and enhance efficiency. By leveraging AI and automation, they're revolutionizing the way they do business. This move is a game-changer, paving the way for increased productivity and improved services. It's amazing to see how technology is transforming the landscape of government operations. The USDA's commitment to innovation is truly commendable, and it's a testament to the potential of AI in the public sector. This step not only drives progress within the USDA but also sets a precedent for other government agencies to explore similar advancements. Kudos to the USDA for embracing intelligent automation and setting a new standard for efficiency and effectiveness\n}\nsuch 2 or 3 news \n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        500,
+        360
+      ],
+      "id": "68847880-72ee-43db-ba09-2820984d2fbc",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "chunkingMode": "advanced",
+        "options": {
+          "summarizationMethodAndPrompts": {
+            "values": {
+              "combineMapPrompt": "=Write detailed summary but first discard any personals rants , hate or negative contents.\nfor rest i need informative content with stats this are need for crafting informative linkedin post.remove everything else that is not need for the post.\nkeep summary 800 words max.\n\n\n\ntitle :{{ $json.title }} this is  content{{ $json.content }}\n\n\n\nCONCISE SUMMARY: ",
+              "prompt": "=Write detailed summary first discard any personals rants , hate or negative contents.\nfor rest i need informative content with stats this are need for crafting informative linkedin post.remove everything else that is not need for the post.\n\nkeep summary 1000 words max.\n{{ $json.title }}this is  content{{ $json.content }}\n summary should title and content with stats and facts or news.\n\nCONCISE SUMMARY: "
+            }
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainSummarization",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ],
+      "id": "3db921ee-724e-400c-bd79-03576c2cf5e9",
+      "name": "Summarization Chain"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are a data collector and summarizer. \n#important use all the data given below\nYou have access to two sets of input data:  \n- Reddit data: {{ $json.data[0].output.text }}  \n- News data: {{ $json.data[0].output }}\n-RSS feed data :{{ $json.data[2].output.text }}\n## Instruction\n \nBased on the recent Reddit data, News data and RSS feed data on the given topic:AI ( Artificial Inteligence)\n\n- FIRST TAKE SUMMARY FROM REDDIT  \n- Focus on any one or two emerging trends, insights, or shifts  \n- Write like a **smart, well-informed human** would — not robotic  summary base on details you got \n- Make it useful and easy to read by a business audience\n-AVOID NEGATIVE ,RELIGIOUS AND RANT , HATE SPEECH.\n- give title and suammry \n\ndo they same rss and news as well\n\n\n- Do keep headings, bullet points, citations, links, or tool names  and stats important\n-  Write a **natural-sounding, well-written paragraph** with title  \n- It should feel fresh, insightful, and clear — like a trend summary or market readout\n\n\n## Content Quality Rules (Must Follow)\n\n- Avoid generic or vague statements.\n- Make every post **focused on one strong idea**, based on a real, current topic.\n- The post should feel **fresh, specific, and valuable to the reader** — especially founders, ops, and tech leaders.\n- Use trending or **recently discussed AI topics** as the foundation for the post.\n- The message must be **catchy and informative**, not just filler.\n- Think of it as something a smart peer would share on LinkedIn — short, useful, and relevant.\n- Consider anchoring in a current stat, use case, or recent shift (e.g., real-time LLM-driven customer intent recognition)this is very important.\n-dont summary multiple topic together pic or one 1 or 2 topic give summary  about them so final outpuy will have a topic summary\n-i need about 5 to 6 such summary 1 or 2 from each news,rss and news \n\n## Output Format\n\n```yaml\nsummary: >\n  [title:\nsource :\nsummary:]"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        1820,
+        400
+      ],
+      "id": "74fee0cd-7359-45a1-8c83-c1074766162c",
+      "name": "AI Agent"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-31T11:14:01.000Z",
+  "versionId": "11c4d535-8f17-4627-b476-5f1d0a36ddf5"
+}

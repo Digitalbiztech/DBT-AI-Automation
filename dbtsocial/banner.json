@@ -1,0 +1,749 @@
+{
+  "active": false,
+  "connections": {
+    "Send Content for Approval1": {
+      "main": [
+        [
+          {
+            "node": "Approval Result1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approval Result1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Revision based on feedback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Revision based on feedback": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields8": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Image": {
+      "main": [
+        [
+          {
+            "node": "S3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Edit Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "S3": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "setnamebanner": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "AI Agent db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent db",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent db",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent db": {
+      "main": [
+        [
+          {
+            "node": "setnamebanner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-07-28T07:11:48.650Z",
+  "id": "jfWxo5yahoS0vUu5",
+  "isArchived": false,
+  "meta": null,
+  "name": "banner",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "post"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2500,
+        500
+      ],
+      "id": "5d8573e3-b0c7-497b-8e9a-588d435c3d27",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "rajeet9653@gmail.com",
+        "subject": "Approval Required for LinkedIn post",
+        "message": "=your post is ready\n{{ $json.output }}",
+        "responseType": "customForm",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Approve Content?",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Yes"
+                  },
+                  {
+                    "option": "No"
+                  },
+                  {
+                    "option": "Cancel"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Content Feedback",
+              "fieldType": "textarea"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "995bb331-c792-40ce-9c57-abad01352c45",
+      "name": "Send Content for Approval1",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        560,
+        200
+      ],
+      "webhookId": "a23938a4-fc6c-4445-8dee-17e501e92e06",
+      "typeVersion": 2.1,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": true,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "317039f4-754e-4cb0-a674-eb8d26c9ed27",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.data['Approve Content?'] }}",
+                    "rightValue": "Yes"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "Yes"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": true,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "caace3ea-4ca0-40de-84fb-5a8fd809a0eb",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.data['Approve Content?'] }}",
+                    "rightValue": "No"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "No"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": true,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "f93e5649-6a21-49a9-9993-85f1323139b0",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.data['Approve Content?'] }}",
+                    "rightValue": "Cancel"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "Cancel"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "120ef883-01cc-4755-9ca6-9509cf844d12",
+      "name": "Approval Result1",
+      "type": "n8n-nodes-base.switch",
+      "position": [
+        780,
+        200
+      ],
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=##role\nyou are assistant to make LinkedIn post based on user response\npost :{{ $('AI Agent db').item.json.output.postclean }}\nchanges :{{ $json.data['Content Feedback'] }}\nDon't make drastic changes — only needed edits for grammar, clarity, or flow.\nReturn the post back in the same tone and structure.\n\n##input",
+        "options": {}
+      },
+      "id": "b5d4678f-5888-47d9-8a68-e17f6da4e8ea",
+      "name": "Revision based on feedback",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1000,
+        300
+      ],
+      "typeVersion": 1.9
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1380,
+        160
+      ],
+      "id": "744fe983-a5f4-4170-ae81-d8120e944239",
+      "name": "Merge"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        200,
+        180
+      ],
+      "id": "e9e3949f-1d4e-43ea-92ef-0b21333c9f7f",
+      "name": "text to html"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "qsnxkTyhoCf6mp4B",
+          "mode": "list",
+          "cachedResultName": "new banner"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "post"
+          ],
+          "schema": [
+            {
+              "id": "post",
+              "displayName": "post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1380,
+        300
+      ],
+      "id": "2877bbb9-ac9d-4fdd-addc-d9f28c00f26c",
+      "name": "Execute Workflow2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c253ac6b-6f2f-4505-8b54-2a253900280b",
+              "name": "output",
+              "value": "={{ $('AI Agent db').item.json.output.postclean }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        180
+      ],
+      "id": "2b8e7dbc-01a0-4d58-b7d0-781c78dcab8e",
+      "name": "Edit Fields8"
+    },
+    {
+      "parameters": {
+        "person": "agyagEHVK-",
+        "text": "={{ $json.output }}",
+        "shareMediaCategory": "IMAGE",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1580,
+        240
+      ],
+      "id": "0a3b293d-b1e6-4a82-8bac-38ac35b1e57e",
+      "name": "LinkedIn",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "multiStep",
+        "operations": {
+          "operations": [
+            {
+              "operation": "text",
+              "text": "={{ $('setnamebanner').item.json.line1 }}",
+              "fontSize": 32,
+              "fontColor": "#FFFFFF",
+              "positionY": 100,
+              "lineLength": 40,
+              "font": "/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf"
+            },
+            {
+              "operation": "text",
+              "text": "={{ $('setnamebanner').item.json.line2}}",
+              "fontSize": 32,
+              "fontColor": "#FFFFFF",
+              "positionY": 220,
+              "lineLength": 40,
+              "font": "/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        -1380,
+        560
+      ],
+      "id": "f60cbc0e-2af3-4614-9c39-0e2b45ad6082",
+      "name": "Edit Image"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1zu6m6WIPUamPohpVK9X7xBJ9aOKC5UPR",
+          "mode": "list",
+          "cachedResultName": "Dbtnewbanner",
+          "cachedResultUrl": "https://drive.google.com/file/d/1zu6m6WIPUamPohpVK9X7xBJ9aOKC5UPR/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -1540,
+        560
+      ],
+      "id": "f6babc24-263c-4a65-b872-481a36405ae6",
+      "name": "Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "xS6kSuLaEkasxHtm",
+          "name": "Google Drive account 6 rn dbt"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "mistral-small-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        -2060,
+        740
+      ],
+      "id": "f0a12fb4-3678-4bea-bacf-d29aa09001db",
+      "name": "Mistral Cloud Chat Model1",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "k9FknrnRcIKYNX7T",
+          "name": "Mistral Cloud account 2 dbt rn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "dbtdigi",
+        "fileName": "={{ $('setnamebanner').item.json.safeName }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        560
+      ],
+      "id": "5e8fa150-8694-4d30-ae27-d375a00b6766",
+      "name": "S3",
+      "credentials": {
+        "s3": {
+          "id": "V2cAkPAhH1poyCLK",
+          "name": "S3 account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"postclean\": \"\",\n  \"line1\": \"\",\n  \"line2\":\"\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        -1900,
+        760
+      ],
+      "id": "41dd20f4-be2c-45bb-aa31-43c6c36c3dbc",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2489da8-e91b-4513-a423-2aea1238e67c",
+              "name": "image_markdown",
+              "value": "=![image](https://qpmrmtlfwlixlplwpllz.supabase.co/storage/v1/object/public/dbtdigi/{{ $('setnamebanner').item.json.safeName }})",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1020,
+        560
+      ],
+      "id": "8b281f13-9f19-4428-9d83-18cb5ec57fdc",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "content": "EMAIL BASES APPROVAL SYSTEM(NOT IN USE)",
+        "height": 580,
+        "width": 1820,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "11b60a39-6947-4b82-b531-d437af5d30da",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "generating banner text",
+        "height": 400,
+        "width": 340,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2100,
+        440
+      ],
+      "typeVersion": 1,
+      "id": "e0c3c22e-4ec3-4391-b1db-2e5302770b18",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ee05a8b8-0010-4f6a-ae59-9acd4cda9c5c",
+              "name": "line1",
+              "value": "={{ $json.output.line1 }}",
+              "type": "string"
+            },
+            {
+              "id": "d7579879-3c87-47bf-904e-fd984265631a",
+              "name": "safeName",
+              "value": "={{$('AI Agent db').item.json.output.line1.split(' ').slice(0, 2).join('_') + '_' + new Date().toISOString().replace(/[-:T]/g, '').slice(0,14)}}\n",
+              "type": "string"
+            },
+            {
+              "id": "9d254a6b-e6eb-4df4-a771-e03a829ac4d8",
+              "name": "line2",
+              "value": "={{ $json.output.line2 }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1680,
+        560
+      ],
+      "id": "7a808a7b-2437-4e7a-8118-85a39c4073dc",
+      "name": "setnamebanner"
+    },
+    {
+      "parameters": {
+        "content": "getting pre-made banner template ",
+        "height": 340,
+        "width": 280,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1560,
+        440
+      ],
+      "typeVersion": 1,
+      "id": "6b5e72b4-df85-4791-9c2c-93f89e32c0d0",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "saving image in s3 bucket for dynamic displaying",
+        "height": 340,
+        "width": 200,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1240,
+        440
+      ],
+      "typeVersion": 1,
+      "id": "e5516652-374f-4038-a0fb-b1b0e126b604",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.post }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "##Role\nYou are an assistant with the role of data formatter and banner caption creator.\n\n##Instructions\n1. Based on the input, create a catchy, relevant, and impactful banner text.\n   -If the banner text is 5 words or less, it will be a single line.\n   -important If it's more than 5 words, it will be split into line1 and line2. Each line will contain a maximum of 5 words but split smartly keeping message intact.\n2. All banner text (single line or split lines).\n3. Respond ONLY with a JSON object.\n\n\nExample Input:\n\"This is a **really** awesome new product launch! Get ready for innovation!\\n🚀\"\n\nExample Output:\n```json\n{\n  \n  \"banner_text\": {\n    \"line1\": \"really awesome new product launch \", only 5 words allowed\n    \"line2\":\" \" one small sentence\n  }\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -2060,
+        520
+      ],
+      "id": "77be4578-131e-4196-99ed-598872f13748",
+      "name": "AI Agent db"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5cb9f63-07d9-4be4-91a2-1452010d3abe",
+              "name": "template",
+              "value": "=1",
+              "type": "number"
+            },
+            {
+              "id": "982e6d0b-e7b8-408d-b9e1-e66376e66cfb",
+              "name": "message ",
+              "value": "The rise of AI is significantly reshaping the job market, with a mix of job displacement and creation. According to a report by McKinsey, AI could replace up to 800 million jobs worldwide by 2030. However, the World Economic Forum predicts that by 2025, AI will create 12 million more jobs than it displaces. This shift highlights the need for adaptation and upskilling in the workforce to stay competitive in an AI-driven future.",
+              "type": "string"
+            },
+            {
+              "id": "d36cda43-bb39-47c9-9bdb-62c9a7f9a282",
+              "name": "title",
+              "value": "=AI's Growing Impact on Job Displacement and Creation",
+              "type": "string"
+            },
+            {
+              "id": "37af4360-b95f-4835-b179-b12581863ae6",
+              "name": "summary ",
+              "value": "=the rise of AI is significantly reshaping the job market, with a mix of job displacement and creation. According to a report by McKinsey, AI could replace up to 800 million jobs worldwide by 2030. However, the World Economic Forum predicts that by 2025, AI will create 12 million more jobs than it displaces. This shift highlights the need for adaptation and upskilling in the workforce to stay competitive in an AI-driven future.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2220,
+        900
+      ],
+      "id": "2154ca2f-caa1-4efb-bd40-94bed0a3de69",
+      "name": "Edit Fields"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-31T15:05:37.000Z",
+  "versionId": "e58bbdf8-1712-4d50-b4f2-e0e83195d2f3"
+}
