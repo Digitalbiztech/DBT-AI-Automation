@@ -2,7 +2,7 @@
 
 A Python application that **crawls websites**, categorizes and summarizes their pages using **Mistral AI**, and stores the results in **Supabase** for easy querying and analysis.
 
-This tool is ideal for **content analysis**, **SEO research**, or **building structured datasets** from unstructured web pages.
+This tool is ideal for GET content like blogs from  web pages.
 
 ---
 
