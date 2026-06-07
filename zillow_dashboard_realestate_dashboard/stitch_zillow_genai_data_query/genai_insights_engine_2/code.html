@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Architect IQ - GenAI Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#15267b",
+                    "surface-container-high": "#282a2d",
+                    "background": "#111316",
+                    "on-error": "#690005",
+                    "on-tertiary": "#00363e",
+                    "surface-tint": "#bac3ff",
+                    "secondary-fixed-dim": "#66d9cc",
+                    "on-tertiary-fixed": "#001f24",
+                    "on-secondary-fixed": "#00201d",
+                    "surface-container-lowest": "#0c0e11",
+                    "surface-container-low": "#1a1c1f",
+                    "on-tertiary-fixed-variant": "#004e59",
+                    "on-primary-fixed-variant": "#2f3f92",
+                    "tertiary": "#55d7ed",
+                    "surface-variant": "#333538",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#9eefff",
+                    "inverse-primary": "#4858ab",
+                    "on-background": "#e2e2e6",
+                    "on-surface-variant": "#c5c5d4",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-container": "#006471",
+                    "inverse-surface": "#e2e2e6",
+                    "tertiary-fixed-dim": "#55d7ed",
+                    "secondary": "#66d9cc",
+                    "on-secondary": "#003732",
+                    "on-surface": "#e2e2e6",
+                    "primary-fixed-dim": "#bac3ff",
+                    "on-secondary-fixed-variant": "#005049",
+                    "surface-container": "#1e2023",
+                    "surface": "#111316",
+                    "on-primary-fixed": "#00105b",
+                    "surface-dim": "#111316",
+                    "secondary-fixed": "#84f5e8",
+                    "primary-container": "#4453a7",
+                    "on-primary-container": "#c9cfff",
+                    "surface-container-highest": "#333538",
+                    "on-secondary-container": "#00302b",
+                    "primary": "#bac3ff",
+                    "outline": "#8f909e",
+                    "inverse-on-surface": "#2f3034",
+                    "secondary-container": "#1ea296",
+                    "error-container": "#93000a",
+                    "surface-bright": "#37393d",
+                    "on-tertiary-container": "#64e3f9",
+                    "outline-variant": "#454652",
+                    "primary-fixed": "#dee0ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body { font-family: 'Inter', sans-serif; }
+      h1, h2, h3, .brand-font { font-family: 'Manrope', sans-serif; }
+      .glass-effect { backdrop-filter: blur(24px); }
+      .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #333538; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex overflow-hidden">
+<!-- SideNavBar (Authority: JSON & Design System) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#0c0e11] flex flex-col py-6 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-xl font-bold text-[#bac3ff] tracking-tighter brand-font uppercase">Architect IQ</h1>
+<p class="text-[10px] text-on-surface-variant tracking-[0.2em] font-semibold opacity-60">REAL ESTATE ANALYTICS</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#c5c5d4] opacity-70 hover:bg-[#1a1c1f] hover:opacity-100 transition-all font-['Manrope'] tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Data Workspace -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#c5c5d4] opacity-70 hover:bg-[#1a1c1f] hover:opacity-100 transition-all font-['Manrope'] tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span>Data Workspace</span>
+</a>
+<!-- SQL Workbench -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#c5c5d4] opacity-70 hover:bg-[#1a1c1f] hover:opacity-100 transition-all font-['Manrope'] tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span>SQL Workbench</span>
+</a>
+<!-- GenAI Insights (ACTIVE) -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#bac3ff] relative before:absolute before:left-0 before:w-1 before:h-8 before:bg-[#bac3ff] before:rounded-full bg-[#1a1c1f] font-['Manrope'] tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-bold">GenAI Insights</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#c5c5d4] opacity-70 hover:bg-[#1a1c1f] hover:opacity-100 transition-all font-['Manrope'] tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="p-4 bg-surface-container rounded-xl border border-outline-variant/10">
+<p class="text-xs text-on-surface-variant mb-2">Token Usage</p>
+<div class="h-1.5 w-full bg-background rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[65%]"></div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="ml-64 flex-1 flex flex-col relative h-screen">
+<!-- TopAppBar (Authority: JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-[#111316]/60 backdrop-blur-xl border-b border-[#c5c5d4]/15 flex justify-between items-center px-8">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary/30 placeholder:text-on-surface-variant/40" placeholder="Search queries, reports, or data sets..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-white transition-colors cursor-pointer" data-icon="refresh">refresh</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-white transition-colors cursor-pointer relative" data-icon="notifications">notifications<span class="absolute top-0 right-0 w-2 h-2 bg-secondary rounded-full border-2 border-background"></span></span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-white transition-colors cursor-pointer" data-icon="help">help</span>
+</div>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-primary/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="professional portrait of a high-end real estate architect wearing modern black spectacles with a sharp minimalist studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1BrA8g3-rAkgBltDjyL_chCFcYybcBJv61SNOGi4PQNmNxsTy389nPf1_0O1KiQdbTup63xNHigbxXzKvCllTXAxuz3CSkUJFX45aqXZRcu2xXDReRMGKGaltdiCDP4mHLUgGRvwMHc_x8untF-HL6v93cv6Tb9_sQRytLL48mq-Pcom6AT9k4212m_7o07hyYlJ83uKOFXKyaSfKXvyQAzKjpPWDybrHwq1DKfD7oNUrhacZEmQfcZNkTKHmLymGACM6b5qSzkg"/>
+</div>
+</div>
+</header>
+<!-- Insights Dashboard Layout -->
+<div class="flex-1 flex mt-16 overflow-hidden">
+<!-- Chat Area (The Genie) -->
+<section class="flex-1 flex flex-col bg-background relative overflow-y-auto custom-scrollbar">
+<!-- Chat Feed -->
+<div class="flex-1 px-12 py-10 space-y-12 max-w-4xl mx-auto w-full">
+<!-- User Message -->
+<div class="flex flex-col items-end group">
+<div class="flex items-center gap-3 mb-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-[10px] text-on-surface-variant font-medium tracking-widest uppercase">Sent 2:14 PM</span>
+</div>
+<div class="bg-surface-container-high px-6 py-4 rounded-2xl rounded-tr-none text-on-surface border border-outline-variant/10 shadow-lg max-w-[85%]">
+<p class="text-sm leading-relaxed">Which suburbs near Columbus have the highest appreciation?</p>
+</div>
+</div>
+<!-- AI Response -->
+<div class="flex flex-col items-start">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<span class="text-xs font-bold text-primary tracking-widest uppercase brand-font">Architect AI</span>
+</div>
+<div class="space-y-6 w-full">
+<p class="text-lg font-medium text-on-surface leading-relaxed font-headline">Analyzing ZHVI data for Franklin County, OH... Here are the top 5 appreciation suburbs over the last 24 months:</p>
+<!-- Chart Content Card -->
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/10 w-full">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="text-sm font-semibold text-on-surface-variant uppercase tracking-widest mb-1">Growth Forecast</h3>
+<p class="text-2xl font-bold text-primary">Top 5 Suburbs</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-on-surface-variant">Avg. Appreciation</p>
+<p class="text-xl font-bold text-secondary">+14.2%</p>
+</div>
+</div>
+<!-- Visual Chart Mock (Asymmetric/Modern) -->
+<div class="grid grid-cols-5 gap-4 h-48 items-end">
+<div class="space-y-2 group cursor-pointer">
+<div class="bg-primary/20 w-full rounded-t-lg transition-all group-hover:bg-primary/40" style="height: 60%;"></div>
+<p class="text-[10px] text-center text-on-surface-variant truncate">Dublin</p>
+</div>
+<div class="space-y-2 group cursor-pointer">
+<div class="bg-primary/40 w-full rounded-t-lg transition-all group-hover:bg-primary/60" style="height: 85%;"></div>
+<p class="text-[10px] text-center text-on-surface-variant truncate">New Albany</p>
+</div>
+<div class="space-y-2 group cursor-pointer">
+<div class="bg-secondary/30 w-full rounded-t-lg transition-all group-hover:bg-secondary/50" style="height: 70%;"></div>
+<p class="text-[10px] text-center text-on-surface-variant truncate">Upper Arlington</p>
+</div>
+<div class="space-y-2 group cursor-pointer">
+<div class="bg-primary/30 w-full rounded-t-lg transition-all group-hover:bg-primary/50" style="height: 95%;"></div>
+<p class="text-[10px] text-center text-on-surface-variant truncate">Powell</p>
+</div>
+<div class="space-y-2 group cursor-pointer">
+<div class="bg-primary/20 w-full rounded-t-lg transition-all group-hover:bg-primary/40" style="height: 50%;"></div>
+<p class="text-[10px] text-center text-on-surface-variant truncate">Hilliard</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex items-center justify-between">
+<div class="flex items-center gap-2 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="database">database</span>
+<span>Grounding Data: <span class="text-on-surface font-mono italic">source: zillow_home_values_oh</span></span>
+</div>
+<button class="text-xs font-bold text-primary hover:underline transition-all">View Full Data Set</button>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-surface-container rounded-full text-xs hover:bg-surface-container-high border border-outline-variant/10 transition-colors">Export Report</button>
+<button class="px-4 py-2 bg-surface-container rounded-full text-xs hover:bg-surface-container-high border border-outline-variant/10 transition-colors">Add to Dashboard</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Input & Suggestions (The Prompt Box) -->
+<div class="sticky bottom-0 p-8 pt-0 bg-gradient-to-t from-background via-background to-transparent">
+<div class="max-w-4xl mx-auto">
+<!-- Suggestions -->
+<div class="flex gap-2 mb-4 overflow-x-auto pb-2 no-scrollbar">
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container/50 border border-outline-variant/20 rounded-full text-xs text-on-surface-variant hover:bg-primary/10 hover:border-primary/40 hover:text-primary transition-all">
+                                Predict next quarter's rent prices
+                            </button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container/50 border border-outline-variant/20 rounded-full text-xs text-on-surface-variant hover:bg-primary/10 hover:border-primary/40 hover:text-primary transition-all">
+                                Compare ROI signals in Ohio
+                            </button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container/50 border border-outline-variant/20 rounded-full text-xs text-on-surface-variant hover:bg-primary/10 hover:border-primary/40 hover:text-primary transition-all">
+                                Show vacancy heatmaps
+                            </button>
+</div>
+<!-- Main Input -->
+<div class="relative">
+<input class="w-full bg-surface-container-high border border-outline-variant/30 rounded-2xl py-5 pl-6 pr-24 text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary/40 shadow-2xl" placeholder="Ask your architect about market trends..." type="text"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="attachment">attachment</span>
+</button>
+<button class="h-10 w-10 bg-gradient-to-br from-primary to-primary-container rounded-xl flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Sidebar: Recent Insights -->
+<aside class="w-80 bg-surface-container-low border-l border-outline-variant/10 flex flex-col">
+<div class="p-6">
+<h2 class="text-xs font-bold text-on-surface-variant uppercase tracking-[0.2em] mb-6">Recent Insights</h2>
+<div class="space-y-1">
+<div class="group p-4 bg-surface-container rounded-xl hover:bg-surface-container-high cursor-pointer transition-all border border-transparent hover:border-outline-variant/20">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] text-secondary font-bold uppercase">ROI Analysis</span>
+<span class="text-[10px] text-on-surface-variant opacity-60">2h ago</span>
+</div>
+<p class="text-sm font-semibold text-on-surface line-clamp-2">Columbus Suburb Appreciation 24mo Trend</p>
+</div>
+<div class="group p-4 rounded-xl hover:bg-surface-container-high cursor-pointer transition-all border border-transparent hover:border-outline-variant/20 opacity-70 hover:opacity-100">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] text-primary font-bold uppercase">Market Pulse</span>
+<span class="text-[10px] text-on-surface-variant opacity-60">Yesterday</span>
+</div>
+<p class="text-sm font-semibold text-on-surface line-clamp-2">Franklin County Multi-family Yields</p>
+</div>
+<div class="group p-4 rounded-xl hover:bg-surface-container-high cursor-pointer transition-all border border-transparent hover:border-outline-variant/20 opacity-70 hover:opacity-100">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] text-tertiary font-bold uppercase">Risk Profile</span>
+<span class="text-[10px] text-on-surface-variant opacity-60">3 days ago</span>
+</div>
+<p class="text-sm font-semibold text-on-surface line-clamp-2">Climate Risk Vulnerability - coastal FL</p>
+</div>
+</div>
+</div>
+<div class="mt-auto p-6">
+<div class="p-5 bg-gradient-to-br from-primary-container/20 to-tertiary-container/20 rounded-2xl border border-primary/20">
+<h3 class="text-sm font-bold text-white mb-2 brand-font">Unlock SQL Mode</h3>
+<p class="text-xs text-on-surface-variant mb-4 leading-relaxed">Directly query your database with natural language in SQL Workbench.</p>
+<button class="w-full py-2 bg-surface-container-highest rounded-lg text-xs font-bold text-primary border border-primary/20 hover:bg-primary/10 transition-all">Go to Workbench</button>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,37 @@
+services:
+  # ------------------------------------------------------------
+  # Backend API (FastAPI)
+  # ------------------------------------------------------------
+  - type: web
+    name: lab-report-api
+    env: docker
+    region: oregon 
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: MISTRAL_API_KEY
+        sync: false # You must paste your API key in the Render Dashboard
+      - key: GEMINI_API_KEY
+        sync: false # You must paste your API key in the Render Dashboard
+
+  # ------------------------------------------------------------
+  # Frontend UI (React/Vite)
+  # ------------------------------------------------------------
+  - type: web
+    name: lab-report-ui
+    env: static
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: "./dist"
+    envVars:
+      - key: NODE_VERSION
+        value: 20.x
+      - key: VITE_SUPABASE_URL
+        sync: false # Set your Supabase URL in Render Dashboard
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false # Set your Supabase Anon Key in Render Dashboard
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: lab-report-api
+          envVarKey: RENDER_EXTERNAL_URL

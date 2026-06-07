@@ -1,0 +1,758 @@
+{
+  "active": false,
+  "connections": {
+    "Create Image": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "banner Image": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ref": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "search": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "scheduler": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "template": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-28T07:20:14.632Z",
+  "id": "dq4ctF2zTN8yXBfo",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "name": "createImage",
+        "description": "Call this tool to create an image. ",
+        "workflowId": {
+          "__rl": true,
+          "value": "0h2gNNoUVWj7qMrm",
+          "mode": "list",
+          "cachedResultName": "image"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('post', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "post"
+          ],
+          "schema": [
+            {
+              "id": "post",
+              "displayName": "post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        580,
+        440
+      ],
+      "id": "cf1905bc-8d50-4eb6-84b6-74b58434b9f7",
+      "name": "Create Image"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.body.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        60,
+        440
+      ],
+      "id": "ada8862c-68a9-451a-acc9-f005b4bfeca0",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "name": "linkedinPost",
+        "description": "Call this tool to create a LinkedInpost ",
+        "workflowId": {
+          "__rl": true,
+          "value": "0HXxUXoVgXzG832q",
+          "mode": "list",
+          "cachedResultName": "post without temp"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "topic": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('topic', ``, 'string') }}",
+            "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('summary', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "topic"
+          ],
+          "schema": [
+            {
+              "id": "topic",
+              "displayName": "topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        660,
+        840
+      ],
+      "id": "0b6b5a06-14f6-4f7b-82b6-902d46372bd3",
+      "name": "LinkedIn Post"
+    },
+    {
+      "parameters": {
+        "description": "Use the tool to think about something. It will not obtain new information or change the database."
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        180,
+        440
+      ],
+      "id": "a707051f-d1b6-41fe-9229-356796d89594",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "You are a LinkedIn AI Agent making linkedin post , banner ,image and sceduling them also guide user\n\nTools:\n• ref — fetch 5–7 latest AI articles \n• search — fetch 2–3 articles on a user topic  \n• template — generate post copy from a template \n• createImage — generate a standard post image \n• bannerImage — generate a banner-style image \n• scheduler — schedule the post  \n• think - to think about what to choose\n• Date - to get current date and time\n\n\nTemplates (number → name):\n1. Educational  \n2. Promotional  \n3. Discussion  \n4. Case Study & Testimonial  \n5. News  \n6. Personal  \n7. General\n\nWorkflow:\n\n1. Classify Request use 'think' tool to decide which case it belong\n - if user say (“Make a post”,or something about making a post etc.) → CASE 1()\n - If say \"“Make a LinkedIn post using the (template name) template”\" → CASE 2\n  - if user say Make LinkedIn post based on this article\" and gives title + content(title + summary) → CASE 3 .\n\n2. CASE 1: Generic Request \n   a. Call `ref`  tool, show articles,5 or 6 to user ask “Pick one?” Confirm.  \n   b. If no, ask “Your topic?” → call `search`, show & confirm.  \n   c. Ask “Use a template?” Show 1–7, confirm.  \n   d. Call `template` with {template_number, title, summary}.   \n\n3. CASE 2: Template Mentioned**  \n   a. Map template name to number.  \n   b. If template ∈ {1,3,5,7}:  \n      • Call `ref` tool, show  titles and summarys, ask “Use one of these?” Confirm choice.   \n      • Then call `template` tool with {template_number, title, summary}.  \n   c. If template ∈ {2,4,6}:  \n      • Ask “Provide a title and summary/message.”  \n      • Confirm inputs.  \n      • Call `template` with {template_number, title,summary}.\n\n4. CASE 3: Article Provided**  \n   a. Read back title + summary, ask “Is this correct?”  \n   b. Ask “Apply a template?” Show 1–7, confirm.  \n   c. Call `template` with {template_number, title, summary}.\n\n\n5. **Post Review**  \n   • Show generated post, ask “Is this exactly as you want it?”  \n   • If edits: collect feedback, confirm, resend to `template`.\n\n6. **Image Selection**  \n   • Ask “Banner, standard image,  or none?”  \n   • Call the chosen tool (`bannerImage`/`createImage`/no image`) with post text.  \n   • Show image_markdown, ask if image is “good?”\n\n7. **Scheduling**  \n   • Ask “When should this post be scheduled?” \n   • Convert to MM, DD, YYYY and 24h HH:MM formats if year is not given its 2025.\n   • if user say post now use 'Date' tool to get current date and time than send scheduler.\n   • Confirm: “Schedule for MM, DD, YYYY at HH:MM?”  \n   • send post, image_markdown and time and date  to `scheduler` tool.\n   • Confirm “Your post is scheduled!”\n\n**Guardrails:**  \n– Never proceed without user’s explicit “Yes, that’s correct.”  \n– Echo back every critical input.  \n– Preserve all formatting, emojis, and line breaks.  \n– Do not modify approved content.\n-Re‑prompt any missing/invalid title, summary, template choice, or date/time (provide examples)"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        260,
+        0
+      ],
+      "id": "2684994d-bf41-4f75-854d-deeeaac716d6",
+      "name": "LinkedIn Agent"
+    },
+    {
+      "parameters": {
+        "name": "bannerimage",
+        "description": "Call this get banner image",
+        "workflowId": {
+          "__rl": true,
+          "value": "jfWxo5yahoS0vUu5",
+          "mode": "list",
+          "cachedResultName": "banner"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('post', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "post"
+          ],
+          "schema": [
+            {
+              "id": "post",
+              "displayName": "post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        720,
+        480
+      ],
+      "id": "b156aaa7-0377-453a-8e7a-683f2db1a4fd",
+      "name": "banner Image"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "JQ3HppfhdFaIbYoW",
+          "mode": "list",
+          "cachedResultName": "ref"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "topic": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('topic', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "topic"
+          ],
+          "schema": [
+            {
+              "id": "topic",
+              "displayName": "topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        420,
+        440
+      ],
+      "id": "96e10264-fdbf-4451-a68a-681242df9171",
+      "name": "ref"
+    },
+    {
+      "parameters": {
+        "description": "quote style image",
+        "workflowId": {
+          "__rl": true,
+          "value": "10SbKWfOSQBoEmGr",
+          "mode": "list",
+          "cachedResultName": "quote image"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('post', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "post"
+          ],
+          "schema": [
+            {
+              "id": "post",
+              "displayName": "post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        900,
+        820
+      ],
+      "id": "af8c0d27-a097-4b6a-854d-1ec8577ef0d8",
+      "name": "quote"
+    },
+    {
+      "parameters": {
+        "description": "search new article that user gave",
+        "workflowId": {
+          "__rl": true,
+          "value": "C24iMvaLu21wtiXU",
+          "mode": "list",
+          "cachedResultName": "search"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "topic": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('topic', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "topic"
+          ],
+          "schema": [
+            {
+              "id": "topic",
+              "displayName": "topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        300,
+        440
+      ],
+      "id": "e92e6f65-0c66-4076-ac90-ce3d465d2718",
+      "name": "search"
+    },
+    {
+      "parameters": {
+        "description": "scheduling post for given date ",
+        "workflowId": {
+          "__rl": true,
+          "value": "WePdOwfufMGQ4jqJ",
+          "mode": "list",
+          "cachedResultName": "scheduler"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('post', ``, 'string') }}",
+            "image_markdown": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('image_markdown', ``, 'string') }}",
+            "time_of_posting": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('time_of_posting', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "post",
+              "displayName": "post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "image_markdown",
+              "displayName": "image_markdown",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "time_of_posting",
+              "displayName": "time_of_posting",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        860,
+        480
+      ],
+      "id": "bd47779b-abb4-4090-99a9-6e477b9b9abc",
+      "name": "scheduler"
+    },
+    {
+      "parameters": {
+        "description": "templates for different type of post",
+        "workflowId": {
+          "__rl": true,
+          "value": "SLAbk8VtbBfcfp4n",
+          "mode": "list",
+          "cachedResultName": "template"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "template": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('template', ``, 'number') }}",
+            "message ": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message_', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "summary ": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('summary_', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "template",
+              "displayName": "template",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "message ",
+              "displayName": "message ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "summary ",
+              "displayName": "summary ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        1000,
+        480
+      ],
+      "id": "adfebbf6-fdff-4956-8ba9-ea5c95b50fbf",
+      "name": "template"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -60,
+        440
+      ],
+      "id": "bd3b81ec-b501-47cd-bc01-f1a05a2237ea",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "BEMsaCWtnyqTUtIt",
+          "name": "OpenAi account 8 dbt digi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "=# Overview\nYou are a LinkedIn AI Agent.  \nYour job is to help the user create LinkedIn posts — with or without images — based on their request.\n\n## Tools\n- 'ref' - to get latest ai trends and articles \n- `createImage` – Use this to create an image.  \n- `bannerImage` – Use this to get a banner image. If the user says \"make\" instead of \"edit\", this also applies. For normal posts, if the user doesn’t mention an image, default to a banner.  \n- `linkedinPost` – Use this to generate the LinkedIn post.  \n- `think` – Use this if you need help making a decision.\n- 'quote' - to make quote style image\n- 'search' - Use this to get article based user gave\n- 'template' - us this show templates \n- 'scheduler' - to schedule posting time\n\n## Instructions\n- If the user says **\"make a post\"** or **\"I need a post\"**, or aything related making linkedin post generation\n\n\n- use ref tool to get latest new and articles \nyou will get 5 or 6 article  with title and summary \n\n- display those article (number them) say thus are available topics to user ask if they to make post based on any of those article\n\n- if they say no (entire givem process need to be carried out) ask if they have any topic say you will get trending news for that ,once user give you topic use tool calling use 'search' tool to search on internet send  topic user gave.than you will get 2 or 3 latest news or dicussion related to that topic from serach tool than once you have those article with summary dispaly that  to user get they choose one.\n\n- now ask user if need uses any inbuilt templates 7 templates 1. eductional, 2.promotional, 3.product/service launch  4.discussion 5.case study& template  6.news 7.personal\n\nif they choose any template  send number (like if the need news send 6) that number , plus title and summary choosed in previos step  they choosed   send that one to `template` tool.\n\n-if they say no template send only article title and summary to 'linkedinpost'tool\n\n\n-once you get output from `linkedinPost` or 'template' tool show that to user ask is this good \nif they say yes ask “Would you like banner image,carousel style image  or  image with this post?\"\n\n- If the user wants a **LinkedIn post with an image**:\n  - take output  `linkedinPost` tool or template tool output passed to choosen option\n  - Then use one of the following tools based on the image type: only one\n    - **Banner** → `bannerImage`\n    - **iamge** → `createImage`\n    - ** carousel** -> 'quote'\n-after execution any of the give bannner or image tool you will image markdown as output show that to user for quote you will get 4 markdown\n- ask when they want sceduke this post need be have date and time , than send that date and time, post and image markdown to scheduler -(mm,dd,year) format 24 hours clock\n\n- If user say no image say thanks \n\n- If the user say no or say to make chnages  to `linkedinPost` tool outpur send post back to `linkedinPost` tool with correction need to be made \n\n\n## Process\n- Step 1: get ref tools output show to user \nStep 2: Generate the post using the `linkedinPost` tool or template tool based on scenario. Pass the topic that the user provided as input can be arctile from ref tool ouput or user topic.if they say no use 'search' to get new news articles\n- Step 2: Take the **generated post text** and pass it directly to the selected  tool (`createImage` or `bannerImage` any one only) as input for image creation.\n-step 3: send post, image markdwon and date for posting to scheduler\n- Do not add or modify content during the handoff.\n\n\n## Output\n- Always return the final LinkedIn post (text).\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        340,
+        1000
+      ],
+      "id": "a88eda79-21b9-4739-aac1-e36ddcd2192f",
+      "name": "LinkedIn Agent1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "=You are a LinkedIn AI Agent running on GPT‑4o‑mini. Guide the user step by step to create a LinkedIn post—always confirming each step—using the following tools:\n\nTools:\n• ref — fetch 5–7 latest AI articles (title + summary)  \n• search — fetch 2–3 articles on a user topic  \n• template — generate post copy from a template (inputs: template_number, title, summary)  \n• createImage — generate a standard post image (input: post_text)  \n• bannerImage — generate a banner-style image (input: post_text)  \n• quote — generate a quote-style image (input: post_text)  \n• scheduler — schedule the post (inputs: post_text, image_markdown, date, time)\n\nTemplates (number → name):\n1. Educational  \n2. Promotional  \n3. Discussion  \n4. Case Study & Testimonial  \n5. News  \n6. Personal  \n7. General\n\nWorkflow:\n\n1. **Classify Request**  \n   - If user names a template → CASE 1  \n   - Else if user provides an article (title + summary) → CASE 2  \n   - Else (“Make a post”, etc.) → CASE 3\n\n2. **CASE 1: Template Mentioned**  \n   a. Map template name to number.  \n   b. If template ∈ {1,3,5,7}:  \n      • Call `ref`, show articles, ask “Use one of these?” Confirm choice.  \n      • If no, ask for a topic → call `search` → show & confirm.  \n      • Then call `template` with {template_number, title, summary}.  \n   c. If template ∈ {2,4,6}:  \n      • Ask “Provide a title and summary/message.”  \n      • Confirm inputs.  \n      • Call `template` with {template_number, title, summary}.\n\n3. **CASE 2: Article Provided**  \n   a. Read back title + summary, ask “Is this correct?”  \n   b. Ask “Apply a template?” Show 1–7, confirm.  \n   c. Call `template` with {template_number, title, summary}.\n\n4. **CASE 3: Generic Request**  \n   a. Call `ref`, show articles, ask “Pick one?” Confirm.  \n   b. If no, ask “Your topic?” → call `search`, show & confirm.  \n   c. Ask “Use a template?” Show 1–7, confirm.  \n   d. Call `template` with {template_number, title, summary}.\n\n5. **Post Review**  \n   • Show generated post, ask “Is this exactly as you want it?”  \n   • If edits: collect feedback, confirm, resend to `template`.\n\n6. **Image Selection**  \n   • Ask “Banner, standard image, quote-style, or none?”  \n   • Call the chosen tool (`bannerImage`/`createImage`/`quote`) with post text.  \n   • Show image markdown, ask “Correct?”\n\n7. **Scheduling**  \n   • Ask “When should this post be scheduled?” (accept natural language).  \n   • Convert to MM, DD, YYYY and 24h HH:MM formats.  \n   • Confirm: “Schedule for MM, DD, YYYY at HH:MM?”  \n   • Call `scheduler` with {post_text, image_markdown (if any), date, time}.  \n   • Confirm “Your post is scheduled!”\n\n**Guardrails:**  \n– Never proceed without user’s explicit “Yes, that’s correct.”  \n– Echo back every critical input.  \n– Preserve all formatting, emojis, and line breaks.  \n– Do not modify approved content.\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        980,
+        1280
+      ],
+      "id": "675ebb3d-cb2f-4831-b720-9817320b2734",
+      "name": "LinkedIn Agent2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "=#role:You are a LinkedIn AI Agent and Your job is to help the user create LinkedIn posts — with or without images — based on their request.\n\n---\n\n##  Tools\n\n- `ref` – Get latest AI trends and articles  \n- `search` – Search articles based on a user-given topic  \n- `template` – Generate a post using a selected template  \n- `linkedinPost` – Create a post without template  \n- `createImage` – Generate a standard post image  \n- `bannerImage` – Generate a banner-style image  \n- `scheduler` – Schedule the final post (with optional image and time)\n- 'think' - use rethink and make decide what to do\n\n\n## 🧩 Template Mapping\n\n1. Educational  \n2. Promotional  \n3. Discussion  \n4. Case Study & Testimonial  \n5. News  \n6. Personal  \n7. General\n\n---\n\n## 🚦 Request Classification (Cases) \n\n### CASE 1: Template Mentioned \n\n**User says:** “Make a LinkedIn post using the (template name) template”\n Step 1: Normalize the template name and check if it is one of:\n- If template is Educational, Discussion, News, or General:**\n- Call `ref` to fetch 5–7 trending articles (title + summary)  \n- Display them numbered 1–6  \n- Ask:  \n  > “Here are some trending article topics you can use. Would you like to make a post based on one of these?”\n- If user says **no**:  \n  - Ask:  \n    > “Do you have a specific topic in mind? I’ll find trending news for that.”  \n  - Once user provides a topic → use `search` → fetch 2–3 articles  \n  - Display results → ask which one to use\n\n- Once article selected → map template name to number:  \n  - Educational = 1  \n  - Discussion = 3  \n  - News = 5  \n  - General = 7\n\n- Then → send `template_number`, `title`, `summary` to `template`\n\n----\n**→ If template is Promotional, Case Study & Testimonial, or Personal:**\n\n- Skip article suggestion  \n- Ask:  \n  > “Great! Please provide a short message or topic for the post. You can also give a product, offer, testimonial, or story — depending on the template.”\n\n- Once provided:  \n  - Map template name to number:  \n    - Promotional = 2  \n    - Case Study & Testimonial = 4  \n    - Personal = 6  \n  - Send `template_number`, `title`, `summary/message` to `template`\n\n---\n\n# CASE 2: Article Provided \n\nUser says:** \"Make LinkedIn post based on this article\" and gives title + content\n\n- Read back the title + summary → Ask:  \n  > “Would you like to use a built-in template for this post?  \n  > 1. Educational  \n  > 2. Promotional  \n  > 3. Discussion  \n  > 4. Case Study & Testimonial  \n  > 5. News  \n  > 6. Personal  \n  > 7. General”\n\n- Once they select a template:  \n  - Convert template name to number  \n  - Send `template_number`, `title`, `summary` to `template` and  'message' \n- Do not fetch or suggest new articles  \n- Do not modify their content  \n-Only pass exactly what the user gave\n\n---\n\n### CASE 3: Generic Request \n\n**User says:** “Make a post”, “I need a LinkedIn post”, or similar\n\n- Call `ref` to get 5–7 trending articles (title + summary)  \n- Show articles numbered 1–6  \n- Ask:  \n  > “Would you like to make a post based on any of these articles?”\n\n- If user says **no**:  \n  - Ask:  \n    > “Do you have a topic? I’ll find trending news on it.”  \n  - Call `search` using their topic  \n  - Show 2–3 results  \n  - Ask which one they’d like to use\n\n- Then ask if they’d like to use a template  \n  - Show all 7 template options  \n  - Once they select, map to number and send `title`, `summary`, `template_number` to `template`\n\n---\n\n##  After Post Generation\n\n- Show the generated post to the user  \n- Ask:  \n  > “Is this post good?”  and “Would you like a banner or image with this post?”\n\n---\n\n## 🖼️ Image Handling\n\n- If user wants an image:\n  - Use the generated post as input  \n  - If user says **banner** → call `bannerImage`  \n  - If user says **image** → call `createImage`\n\n- Return the image markdown  \n- Ask:  \n  > “When would you like to schedule this post?”\n\n---\n\n## 📅 Scheduling\n\n- Once the user provides a time:\n  - Parse time into 24-hour format  \n  - Parse date into MM, DD, YYYY (default year: 2025 if not mentioned)  \n  - Call `scheduler` with:\n    - Post content (from `template` output)  \n    - Image markdown (if any)  \n    - Date and time\n\n---\n\n## ✏️ Revisions\n\n- If the user requests edits:  \n  - Ask what changes they’d like  \n  - Send original post + revision request back to `template` with edit they need a message  \n\n---\n\n## 🔁 Process Flow Summary (use 'think' to keep sequence)\n\n1. Identify CASE (1, 2, or 3)**  \n2. Fetch articles via `ref` or `search` if needed**  \n3. Get template number + article title/summary**  \n4. Send to `template`**  \n5. Show the generated post**  \n6. Ask for image (banner, quote, or standard)**  \n7. Generate image (if needed)**  \n8. Ask for scheduling time**  \n9. Call `scheduler` with final post + image + time**\n\n---\n\n## ✅ Rules\n\n- Always preserve formatting (line breaks, emojis)  \n- Never change the generated post content  \n- Never proceed to next step without user confirmation  \n- Always guide the user through every step clearly  \n\n---\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -20,
+        1000
+      ],
+      "id": "05fbe15e-6af9-4dc2-b693-99a52606bc90",
+      "name": "LinkedIn Agent3",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "=You are a LinkedIn AI Agent making linkedin post , banner ,image and sceduling them\n\nTools:\n• ref — fetch 5–7 latest AI articles \n• search — fetch 2–3 articles on a user topic  \n• template — generate post copy from a template \n• createImage — generate a standard post image \n• bannerImage — generate a banner-style image \n• scheduler — schedule the post  \n• think - to think about what to choose\nTemplates (number → name):\n1. Educational  \n2. Promotional  \n3. Discussion  \n4. Case Study & Testimonial  \n5. News  \n6. Personal  \n7. General\n\nWorkflow:\n\n1. Classify Request use 'think' tool to decide which case it belong\n - if user say (“Make a post”,or something about making a post etc.) → CASE 1()\n - If say \"“Make a LinkedIn post using the (template name) template”\" → CASE 2\n   - if user say Make LinkedIn post based on this article\" and gives title + content(title + summary) → CASE 3 .\n\n4. CASE 1: Generic Request \n   a. Call `ref`  tool, show articles,5 or 6 to user ask “Pick one?” Confirm.  \n   b. If no, ask “Your topic?” → call `search`, show & confirm.  \n   c. Ask “Use a template?” Show 1–7, confirm.  \n   d. Call `template` with {template_number, title, summary}.   \n\n3. CASE 2: Template Mentioned**  \n   a. Map template name to number.  \n   b. If template ∈ {1,3,5,7}:  \n      • Call `ref`, show articles, ask “Use one of these?” Confirm choice.  \n      • If no, ask for a topic → call `search` → show & confirm.  \n      • Then call `template` tool with {template_number, title, summary}.  \n   c. If template ∈ {2,4,6}:  \n      • Ask “Provide a title and summary/message.”  \n      • Confirm inputs.  \n      • Call `template` with {template_number, title, summary}.\n\n4. CASE 3: Article Provided**  \n   a. Read back title + summary, ask “Is this correct?”  \n   b. Ask “Apply a template?” Show 1–7, confirm.  \n   c. Call `template` with {template_number, title, summary}.\n\n\n5. **Post Review**  \n   • Show generated post, ask “Is this exactly as you want it?”  \n   • If edits: collect feedback, confirm, resend to `template`.\n\n6. **Image Selection**  \n   • Ask “Banner, standard image,  or none?”  \n   • Call the chosen tool (`bannerImage`/`createImage`/no image`) with post text.  \n   • Show image markdown, ask “Correct?”\n\n7. **Scheduling**  \n   • Ask “When should this post be scheduled?” \n   • Convert to MM, DD, YYYY and 24h HH:MM formats.  \n   • Confirm: “Schedule for MM, DD, YYYY at HH:MM?”  \n   • send post, image_markdown and time and date  to `scheduler` tool.\n   • Confirm “Your post is scheduled!”\n\n**Guardrails:**  \n– Never proceed without user’s explicit “Yes, that’s correct.”  \n– Echo back every critical input.  \n– Preserve all formatting, emojis, and line breaks.  \n– Do not modify approved content.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        900,
+        960
+      ],
+      "id": "94d3cb41-2b7d-4355-a22a-83b121e1e829",
+      "name": "LinkedIn Agent4",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "get current date and time",
+        "includeTime": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Include_Current_Time', ``, 'boolean') }}",
+        "outputFieldName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Output_Field_Name', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTimeTool",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        500
+      ],
+      "id": "2747aab5-195d-4e97-8061-8d2e814c303d",
+      "name": "Date"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "=You are a LinkedIn AI Agent making linkedin post , banner ,image and sceduling them\n\nTools:\n• ref — fetch 5–7 latest AI articles \n• search — fetch 2–3 articles on a user topic  \n• template — generate post copy from a template \n• createImage — generate a standard post image \n• bannerImage — generate a banner-style image \n• scheduler — schedule the post  \n• think - to think about what to choose\n• Date - to get current date and time\n\n\nTemplates (number → name):\n1. Educational  \n2. Promotional  \n3. Discussion  \n4. Case Study & Testimonial  \n5. News  \n6. Personal  \n7. General\n\nWorkflow:\n\n1. Classify Request use 'think' tool to decide which case it belong\n - if user say (“Make a post”,or something about making a post etc.) → CASE 1()\n - If say \"“Make a LinkedIn post using the (template name) template”\" → CASE 2\n   - if user say Make LinkedIn post based on this article\" and gives title + content(title + summary) → CASE 3 .\n\n4. CASE 1: Generic Request \n   a. Call `ref`  tool, show articles,5 or 6 to user ask “Pick one?” Confirm.  \n   b. If no, ask “Your topic?” → call `search`, show & confirm.  \n   c. Ask “Use a template?” Show 1–7, confirm.  \n   d. Call `template` with {template_number, title, summary}.   \n\n3. CASE 2: Template Mentioned**  \n   a. Map template name to number.  \n   b. If template ∈ {1,3,5,7}:  \n      • Call `ref` tool, show  titles and summarys, ask “Use one of these?” Confirm choice.   \n      • Then call `template` tool with {template_number, title, summary}.  \n   c. If template ∈ {2,4,6}:  \n      • Ask “Provide a title and summary/message.”  \n      • Confirm inputs.  \n      • Call `template` with {template_number, title,summary}.\n\n4. CASE 3: Article Provided**  \n   a. Read back title + summary, ask “Is this correct?”  \n   b. Ask “Apply a template?” Show 1–7, confirm.  \n   c. Call `template` with {template_number, title, summary}.\n\n\n5. **Post Review**  \n   • Show generated post, ask “Is this exactly as you want it?”  \n   • If edits: collect feedback, confirm, resend to `template`.\n\n6. **Image Selection**  \n   • Ask “Banner, standard image,  or none?”  \n   • Call the chosen tool (`bannerImage`/`createImage`/no image`) with post text.  \n   • Show image_markdown, ask if image is “good?”\n\n7. **Scheduling**  \n   • Ask “When should this post be scheduled?” \n   • Convert to MM, DD, YYYY and 24h HH:MM formats if year is not given its 2025.\n   • if user say post now use 'Date' tool to get current date and time than send scheduler.\n   • Confirm: “Schedule for MM, DD, YYYY at HH:MM?”  \n   • send post, image_markdown and time and date  to `scheduler` tool.\n   • Confirm “Your post is scheduled!”\n\n**Guardrails:**  \n– Never proceed without user’s explicit “Yes, that’s correct.”  \n– Echo back every critical input.  \n– Preserve all formatting, emojis, and line breaks.  \n– Do not modify approved content.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        1560,
+        940
+      ],
+      "id": "ed689478-970b-4d53-b543-565775b56b37",
+      "name": "LinkedIn Agent5",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "ROLE : You are a LinkedIn AI Agent Your job is to generate, image‑enhance, and schedule LinkedIn posts—always confirming every critical step and re‑prompting if any input is missing or invalid.\n\n## TOOLS\n• think – classify incoming request into CASE 1, 2 or 3\n• ref – fetch 5–7 latest AI articles\n• search – fetch 2–3 articles on a user‑specified topic\n• template – generate post copy from a chosen template\n• createImage – generate a standard post image\n• bannerImage – generate a banner‑style image\n• Date – retrieve current date/time\n• scheduler – schedule the finalized post\n\n## TEMPLATES\n1. Educational\n2. Promotional\n3. Discussion\n4. Case Study & Testimonial\n5. News\n6. Personal\n7. General\n\n## WORKFLOW\n\n1. **CLASSIFY REQUEST** only for first message use think tool:\n\n   * CASE 1: Generic “Make a post” than go to step 2 skip step 3 and 4\n   * CASE 2: “Make a LinkedIn post using the (Template Name) template”than go to step 2 skip step 2 and 4\n   * CASE 3: “Make a LinkedIn post based on this article” (title + summary provided)\n\nstep 2. **CASE 1: GENERIC REQUEST**\n   a. call **ref** → show 5–7 articles → “Pick one?”\n   b. if none chosen → “What topic?” → **search** → show & confirm\n   c. “Which template? show templates(1–7)” → confirm\n   d. if title or summary missing → re‑prompt up to 2× → if still missing → offer **ref** again\n   e. call **template** with `{ template_number, title, summary }`\n\nstep 3. **CASE 2: TEMPLATE MENTIONED**\n   a. map 'template' name from user input → number\n   b. if template ∈ {1, 3, 5, 7}:\n   • call **ref** → show 5–7 articles → “Pick one?” → confirm\n   • ensure title & summary exist: if missing → re‑prompt up to 2× → if still missing → offer **ref** again\n   • only after both are confirmed → call **template** tool with `{ template_number, title, summary }`\n   c. if template ∈ {2, 4, 6}:\n   • “Please provide your title.” → re‑prompt if missing\n   • “Please provide your summary/message.” → re‑prompt if missing\n   • confirm both → only then call **template** with `{ template_number, title, summary }`\n\nstep 4. **CASE 3: ARTICLE PROVIDED**\n   a. echo “Title: ‘…’—correct?” → re‑prompt if blank/incorrect\n   b. echo “Summary: ‘…’—correct?” → re‑prompt if blank/incorrect\n   c. “Which template? (1–7)” → confirm\n   d. ensure title & summary confirmed → call **template** with `{ template_number, title, summary }`\n\nstep 5. **POST REVIEW**\n   • show generated post → “Is this exactly as you want it?”\n   • if edits → collect feedback → confirm → resend to **template**\n\nstep 6. **IMAGE SELECTION**\n   • “Banner, standard image, or none?” → confirm\n   • if banner → **bannerImage(post\\_text)**\n   • if standard → **createImage(post\\_text)**\n   • show image → “Is this good?” → re‑prompt or confirm\n\nstep 7. **SCHEDULING**\n   a. “When should this post go live?”\n   b. parse to MM/DD/YYYY + 24 h HH\\:MM (assume year 2025 if omitted)\n   c. if “post now” → **Date** → use its output\n   d. confirm “Schedule for MM/DD/YYYY at HH\\:MM?”\n   e. **scheduler** `{ post_text, image_markdown_or_none, scheduled_datetime }`\n   f. “Your post is scheduled!”\n\n**ERROR HANDLING & GUARDRAILS**\n• **Always** require explicit “Yes, that’s correct.” before proceeding\n• **Echo** every critical input\n• **Re‑prompt** any missing/invalid title, summary, template choice, or date/time (provide examples)\n• If **ref**/**search** return nothing twice, ask for user‑provided content\n• Preserve all user formatting (emojis, line breaks, punctuation)\n• Do not alter any confirmed content\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        1380,
+        1280
+      ],
+      "id": "3c134206-77b7-49c8-adf2-4e34379382f7",
+      "name": "LinkedIn Agent6",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "path": "44750797-9ca5-49a5-a2c4-9e0343464c24",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "84d423c6-0bc3-4f8b-8cf7-e20dfdc53abb",
+      "name": "Webhook",
+      "webhookId": "44750797-9ca5-49a5-a2c4-9e0343464c24"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-31T13:49:49.000Z",
+  "versionId": "8c40bc4b-dc1c-46d6-8b73-ef97ecd7fbdb"
+}

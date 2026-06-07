@@ -1,0 +1,364 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Supabase1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-28T07:18:00.593Z",
+  "id": "WePdOwfufMGQ4jqJ",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "scheduler",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "post"
+            },
+            {
+              "name": "image_markdown"
+            },
+            {
+              "name": "time_of_posting"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -440,
+        240
+      ],
+      "id": "5f8590f5-891b-4d07-b641-14e688b129eb",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "719bcf29-6168-4afe-8e37-5847b67b8c86",
+              "leftValue": "={{ $json.time_of_posting }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -260,
+        240
+      ],
+      "id": "4cc787f4-7dda-409c-a5ce-1168799a46c2",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "tableId": "schedulepost",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "post",
+              "fieldValue": "={{ $json.post }}"
+            },
+            {
+              "fieldId": "image_markdown",
+              "fieldValue": "={{ $json.image_markdown }}"
+            },
+            {
+              "fieldId": "time_of_posting",
+              "fieldValue": "={{ $json.time_of_posting }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        360,
+        80
+      ],
+      "id": "97f53c6a-3784-423f-9385-aeea681d9a52",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTimeTool",
+      "typeVersion": 2,
+      "position": [
+        180,
+        740
+      ],
+      "id": "a093f9e4-fc46-4709-8690-98a707d262b1",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "model": "mistral-small-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        40,
+        720
+      ],
+      "id": "dbd56570-087d-4ccf-89e6-5b595c020151",
+      "name": "Mistral Cloud Chat Model",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "k9FknrnRcIKYNX7T",
+          "name": "Mistral Cloud account 2 dbt rn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "post_queue",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "post"
+            },
+            {
+              "fieldId": "image_markdown"
+            },
+            {
+              "fieldId": "time_of_posting"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        520,
+        540
+      ],
+      "id": "09515bff-5d3f-414d-a9a8-41e0c52850d7",
+      "name": "Supabase1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HCQXqjukUb1jxXPk",
+          "name": "Supabase account 4(rn dbt)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cb2e0ffb-4ee3-4706-8e41-bf53f52e372a",
+              "name": "post",
+              "value": "={{ $json.post }}",
+              "type": "string"
+            },
+            {
+              "id": "5150c12a-0ecd-4cde-a8f7-4499f933d9ae",
+              "name": "image_markdown",
+              "value": "={{ $json.image_markdown }}",
+              "type": "string"
+            },
+            {
+              "id": "8d785553-f7c6-4195-890d-b1d064634dd0",
+              "name": "time_of_posting",
+              "value": "={{ $json.time_of_posting }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        100,
+        80
+      ],
+      "id": "2247146e-25db-4901-9e18-cf5a712d745e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        540
+      ],
+      "id": "50a8e425-d627-4daa-965b-aa5078210f13",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "content": "if no time is provided schedule one accordingly",
+        "height": 260,
+        "width": 440,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        440
+      ],
+      "typeVersion": 1,
+      "id": "9c90a100-681c-4ffb-b38b-ea1bfa8ae971",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "save post, image, schedule into database",
+        "height": 260,
+        "width": 600,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "1f108bc2-cbdd-4ed0-b2f0-4cd2ce0f9c07",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        0,
+        500
+      ],
+      "id": "41a7b6ed-de74-4f92-82b5-4623b9e2756b",
+      "name": "AI Agent"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-31T14:54:08.000Z",
+  "versionId": "9bc3bd75-9e16-4cec-9efc-9ea881ba1644"
+}

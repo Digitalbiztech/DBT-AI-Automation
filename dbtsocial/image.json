@@ -1,0 +1,576 @@
+{
+  "active": false,
+  "connections": {
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Content for Approval1": {
+      "main": [
+        [
+          {
+            "node": "Approval Result1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approval Result1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "S32": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields8": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "S32",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser7": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-28T07:08:19.143Z",
+  "id": "0h2gNNoUVWj7qMrm",
+  "isArchived": false,
+  "meta": null,
+  "name": "image",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d7579879-3c87-47bf-904e-fd984265631a",
+              "name": "safeName",
+              "value": "={{$json.output.imageprompt.split(' ').slice(0, 2).join('_') + '_' + new Date().toISOString().replace(/[-:T]/g, '').slice(0, 14)}}\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1200,
+        40
+      ],
+      "id": "f3907f78-64cc-4742-98a4-b64d5bb81b40",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "rajeet9653@gmail.com",
+        "subject": "Approval Required for LinkedIn post",
+        "message": "=your post is ready\n{{ $json.output }}",
+        "responseType": "customForm",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Approve Content?",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Yes"
+                  },
+                  {
+                    "option": "No"
+                  },
+                  {
+                    "option": "Cancel"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Content Feedback",
+              "fieldType": "textarea"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "8481308d-9ddd-40d4-891f-536123e8a2e6",
+      "name": "Send Content for Approval1",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        440,
+        300
+      ],
+      "webhookId": "a23938a4-fc6c-4445-8dee-17e501e92e06",
+      "typeVersion": 2.1,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": true,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "317039f4-754e-4cb0-a674-eb8d26c9ed27",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.data['Approve Content?'] }}",
+                    "rightValue": "Yes"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "Yes"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": true,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "caace3ea-4ca0-40de-84fb-5a8fd809a0eb",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.data['Approve Content?'] }}",
+                    "rightValue": "No"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "No"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": true,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "f93e5649-6a21-49a9-9993-85f1323139b0",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.data['Approve Content?'] }}",
+                    "rightValue": "Cancel"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "Cancel"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "29c0c62a-47b5-4eb6-8197-b6d8479231a7",
+      "name": "Approval Result1",
+      "type": "n8n-nodes-base.switch",
+      "position": [
+        720,
+        340
+      ],
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1280,
+        260
+      ],
+      "id": "d461b753-10a0-4a65-bc7a-57596c225273",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "dbtdigi",
+        "fileName": "={{ $('Edit Fields6').item.json.safeName }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        -700,
+        40
+      ],
+      "id": "c89171f4-d9c7-4541-9075-ea6774e0aa16",
+      "name": "S32",
+      "credentials": {
+        "s3": {
+          "id": "go7vdAKjittukp5Z",
+          "name": "S3 account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "mistral-small-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        -1520,
+        320
+      ],
+      "id": "f3f74c9b-a680-40b5-be6a-be18fbfe15e9",
+      "name": "Mistral Cloud Chat Model4",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "k9FknrnRcIKYNX7T",
+          "name": "Mistral Cloud account 2 dbt rn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "6S4EzUmPW5nyBczh",
+          "mode": "list",
+          "cachedResultName": "new image"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "post"
+          ],
+          "schema": [
+            {
+              "id": "post",
+              "displayName": "post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1320,
+        500
+      ],
+      "id": "08c8c3da-c049-43c1-9745-fa14b2280fe8",
+      "name": "Execute Workflow2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c253ac6b-6f2f-4505-8b54-2a253900280b",
+              "name": "output",
+              "value": "={{ $('AI Agent5').item.json.output.postclean }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1020,
+        280
+      ],
+      "id": "25409bd3-5ab8-4e88-8f70-3b41b633db7b",
+      "name": "Edit Fields8"
+    },
+    {
+      "parameters": {
+        "person": "agyagEHVK-",
+        "text": "={{ $json.output }}",
+        "shareMediaCategory": "IMAGE",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        280
+      ],
+      "id": "23204d08-d8da-47f4-a599-e992df7f5be3",
+      "name": "LinkedIn",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"postclean\": \"\",\n  \"imageprompt\": \"\"\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        -1280,
+        320
+      ],
+      "id": "b6556c32-5ee1-4822-9884-1e6eec5efc86",
+      "name": "Structured Output Parser7"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "post"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1760,
+        80
+      ],
+      "id": "6568b9f7-063d-4986-ba20-e957aba6413d",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2489da8-e91b-4513-a423-2aea1238e67c",
+              "name": "image markdown",
+              "value": "=![image](https://qpmrmtlfwlixlplwpllz.supabase.co/storage/v1/object/public/dbtdigi/{{ $('Edit Fields6').item.json.safeName }})",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -400,
+        40
+      ],
+      "id": "943cc413-34e4-496e-8d12-663e719febd3",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "email approval system",
+        "height": 940,
+        "width": 1880
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "aaef64f2-3098-4277-bb81-dc23e6f046df",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "model": "gpt-image-1",
+        "prompt": "={{ $('AI Agent').item.json.output.imageprompt }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -1000,
+        40
+      ],
+      "id": "31dc8fe5-1486-4385-a949-f728ac98b1cf",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "BEMsaCWtnyqTUtIt",
+          "name": "OpenAi account 8 dbt digi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5e529486-1915-4c13-a591-2ed55be87af5",
+              "name": "post",
+              "value": " \"output\": \"🚀 **Unlocking Efficiency with AI Automation!** 🤖  \\n\\nAs a founder of Sastha AI, I've seen firsthand the incredible impact that AI automation can have on businesses of all sizes. But here's the real challenge: Many automation agencies miss the mark by drowning clients in tech jargon instead of focusing on real-world solutions!  \\n\\nAI is not just about algorithms; it's about simplifying your operations to save time and money. 🤔 A retail business owner recently pointed this out—small businesses don't need complex AI jargon; they need straightforward, practical solutions that address their unique pain points.  \\n\\nFor instance, automating mundane tasks like loan applications might seem trivial, but it can free up valuable time for business owners to focus on growth. 🌱 We built our solutions to do just that—transform repetitive workflows into automated processes, allowing teams to enhance productivity and deliver exceptional customer experiences.  \\n\\nThe takeaway? Let’s simplify the conversation! 🌟 Targeting small businesses with clear, actionable insights will bridge the gap between their challenges and our innovative solutions.  \\n\\nWant to dive deeper into how AI can elevate your business? Check out my latest thoughts on AI automation here: [Sastha AI](https://sastha-ai.com)   \\n\\nWhat’s the biggest lesson you’ve learned in simplifying processes for efficiency? 🤔  \\n\\n#AIAutomation #BusinessEfficiency #CustomerFocus #LetAIDoIt #SasthaAI\"   ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        340,
+        520
+      ],
+      "id": "5efb25cd-8806-48a4-850c-3064276cc46c",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.post }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=## Role: Prompt Generator for Image prompt\n\n## Instruction:\nCreate 1 image generation prompt for  linkedin style visuals for this post: {{ $json.post }}  \n\n## Requirements:\n\nYou are an image prompt optimizer.  \n The prompt must{{ $json.post }}  should be based on the post much just few lines.\n- Style: Vector-based infographics.\n- Format:clean , professional.\n- Look: Clean,eye cathing  and informative.\n- Purpose: Educational or process explanation.\n- Do **not** include humans, faces, or AI-generated characters should keep formal and professional style.\n-also give text that will be on image \n \"Text must be in clear, correct English.\"\n\n\n- Use proper grammar, layout, and readability in your wording.\n\n\nInput: {{ $json.post }}\n\nOutput:\n- `postclean`: post `**` removed.\n- `imagePrompt`: a valid JSON-safe string of the image generation prompt following the rules above.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -1540,
+        60
+      ],
+      "id": "da3d895a-3cdd-492b-b523-fe027af1e44c",
+      "name": "AI Agent"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-31T14:32:26.000Z",
+  "versionId": "bea91ba0-7582-4b0f-865a-c2d2de4ef145"
+}

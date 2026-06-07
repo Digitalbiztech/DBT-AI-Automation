@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 8% 7%;
+    --foreground: 240 5% 90%;
+
+    --card: 222 8% 9%;
+    --card-foreground: 240 5% 90%;
+
+    --popover: 222 8% 9%;
+    --popover-foreground: 240 5% 90%;
+
+    --primary: 231 74% 70%;
+    --primary-foreground: 222 8% 6%;
+
+    --secondary: 215 20% 65%;
+    --secondary-foreground: 222 8% 6%;
+
+    --tertiary: 187 84% 63%;
+    --tertiary-foreground: 222 8% 6%;
+
+    --muted: 222 12% 14%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 231 74% 70%;
+    --accent-foreground: 222 8% 6%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 240 5% 90%;
+
+    --border: 240 4% 20%;
+    --input: 240 4% 20%;
+    --ring: 231 74% 70%;
+
+    --radius: 0.75rem;
+
+    --chart-1: 231 74% 70%;
+    --chart-2: 168 60% 55%;
+    --chart-3: 187 84% 63%;
+    --chart-4: 43 96% 56%;
+    --chart-5: 0 72% 51%;
+
+    --sidebar-background: 222 8% 5%;
+    --sidebar-foreground: 240 5% 90%;
+    --sidebar-primary: 231 74% 70%;
+    --sidebar-primary-foreground: 222 8% 6%;
+    --sidebar-accent: 222 12% 14%;
+    --sidebar-accent-foreground: 240 5% 90%;
+    --sidebar-border: 240 4% 15%;
+    --sidebar-ring: 231 74% 70%;
+
+    --success: 168 60% 45%;
+    --success-foreground: 240 5% 98%;
+    --warning: 43 96% 56%;
+    --warning-foreground: 222 8% 6%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50 rounded-xl shadow-lg;
+  }
+
+  .glass-effect {
+    background: rgba(51, 53, 56, 0.6);
+    backdrop-filter: blur(24px);
+  }
+
+  .primary-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, #4453a7 100%);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.3);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--chart-2))];
+  }
+
+  .headline-font {
+    font-family: 'Manrope', sans-serif;
+  }
+}

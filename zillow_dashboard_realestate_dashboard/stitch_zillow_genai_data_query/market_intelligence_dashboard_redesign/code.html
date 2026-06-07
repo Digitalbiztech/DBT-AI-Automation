@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LUMINA ANALYTICS | Market Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#4453a7",
+                        "surface-container-highest": "#333538",
+                        "on-primary": "#15267b",
+                        "on-primary-fixed": "#00105b",
+                        "tertiary-container": "#006471",
+                        "primary-fixed": "#dee0ff",
+                        "surface-dim": "#111316",
+                        "primary": "#bac3ff",
+                        "error-container": "#93000a",
+                        "tertiary-fixed": "#9eefff",
+                        "secondary-fixed": "#84f5e8",
+                        "outline-variant": "#454652",
+                        "secondary": "#66d9cc",
+                        "tertiary-fixed-dim": "#55d7ed",
+                        "surface": "#111316",
+                        "secondary-container": "#1ea296",
+                        "on-tertiary": "#00363e",
+                        "on-tertiary-fixed": "#001f24",
+                        "surface-variant": "#333538",
+                        "on-secondary-container": "#00302b",
+                        "outline": "#8f909e",
+                        "on-tertiary-container": "#64e3f9",
+                        "inverse-primary": "#4858ab",
+                        "surface-container-lowest": "#0c0e11",
+                        "on-secondary-fixed": "#00201d",
+                        "on-error": "#690005",
+                        "on-primary-container": "#c9cfff",
+                        "secondary-fixed-dim": "#66d9cc",
+                        "on-tertiary-fixed-variant": "#004e59",
+                        "on-background": "#e2e2e6",
+                        "surface-container-low": "#1a1c1f",
+                        "surface-tint": "#bac3ff",
+                        "surface-bright": "#37393d",
+                        "on-surface": "#e2e2e6",
+                        "on-secondary": "#003732",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-high": "#282a2d",
+                        "inverse-surface": "#e2e2e6",
+                        "on-secondary-fixed-variant": "#005049",
+                        "surface-container": "#1e2023",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#bac3ff",
+                        "on-surface-variant": "#c5c5d4",
+                        "on-primary-fixed-variant": "#2f3f92",
+                        "tertiary": "#55d7ed",
+                        "inverse-on-surface": "#2f3034",
+                        "background": "#111316"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #111316; color: #e2e2e6; }
+        .headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { background: rgba(51, 53, 56, 0.6); backdrop-filter: blur(24px); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111316; }
+        ::-webkit-scrollbar-thumb { background: #333538; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex overflow-hidden h-screen bg-surface">
+<!-- SideNavBar Sidebar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#0c0e11] flex flex-col py-6 border-r border-[#c5c5d4]/10">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-black text-white headline tracking-tight">LUMINA</h1>
+<p class="text-[0.6875rem] uppercase tracking-[0.2em] text-on-surface-variant/60 font-semibold mt-1">Portfolio Intelligence</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Dashboard Active -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#bac3ff] relative before:absolute before:left-0 before:w-1 before:h-8 before:bg-[#bac3ff] before:rounded-full bg-[#1e2023]/40" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium tracking-wide">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#c5c5d4] opacity-70 hover:bg-[#1e2023] hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">database</span>
+<span class="text-sm font-medium tracking-wide">Data Workspace</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#c5c5d4] opacity-70 hover:bg-[#1e2023] hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+<span class="text-sm font-medium tracking-wide">SQL Workbench</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#c5c5d4] opacity-70 hover:bg-[#1e2023] hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span class="text-sm font-medium tracking-wide">GenAI Insights</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#c5c5d4] opacity-70 hover:bg-[#1e2023] hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium tracking-wide">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-6 space-y-4">
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/10">
+<p class="text-[0.625rem] text-on-surface-variant uppercase tracking-widest mb-2">System Health</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(102,217,204,0.4)]"></div>
+<span class="text-xs text-on-surface font-medium">Market View v2.4</span>
+</div>
+</div>
+<button class="w-full py-3 px-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl text-sm flex items-center justify-center gap-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+                Export Report
+            </button>
+<div class="pt-4 border-t border-outline-variant/10 space-y-2">
+<a class="flex items-center gap-3 text-[#c5c5d4] opacity-70 hover:opacity-100 text-xs" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+                    Support
+                </a>
+<a class="flex items-center gap-3 text-[#c5c5d4] opacity-70 hover:opacity-100 text-xs" href="#">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+                    Documentation
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 ml-64 overflow-y-auto bg-surface relative">
+<!-- TopNavBar Shell -->
+<header class="sticky top-0 z-30 flex justify-between items-center w-full px-8 py-3 h-16 bg-[#111316] border-b border-[#c5c5d4]/15 glass-panel">
+<div class="flex items-center gap-8">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-sm w-64 focus:ring-1 focus:ring-primary/50 text-on-surface transition-all" placeholder="Search market entities..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-bright text-on-surface-variant transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-surface"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-bright text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-1"></div>
+<div class="flex items-center gap-3 pl-2">
+<img alt="User profile" class="w-8 h-8 rounded-full object-cover border border-primary/20" data-alt="portrait of a professional analyst in a modern office environment with soft studio lighting and dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD870f3cu3tTzjftk1eBQK04gGo16G4CkJtjtkzIXzJOF19aqV3HyvDQuqvOXgwOtf-VAYCPiNgrmeQXngfqz27mnmbWa2NVar5Q6Xc4xMU6v9Bwu--3ENTn8oPbpdQbFXJpQaT4NSq6ERR038tTMFP0_o_LXLVWL3j01eF9_XNG3piLPxNAchnN5OxJQPR2yDXWLsaNACJiJe8s-JXtye4iHncC3pIg3vvj5wgFDVV3k5w3Hy5sKZQ7cRqwG98tqdyegWbRfkwy-Q"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+<div>
+<h2 class="text-3xl font-extrabold headline text-white tracking-tight">Executive Dashboard</h2>
+<p class="text-on-surface-variant mt-1 text-sm font-medium">Real Estate Market Performance &amp; Predictive Analysis</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 rounded-xl border border-outline-variant text-on-surface font-semibold text-sm hover:bg-surface-container-high transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                        Export PDF
+                    </button>
+<button class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold text-sm hover:opacity-90 transition-opacity flex items-center gap-2 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+                        Generate Report
+                    </button>
+</div>
+</div>
+<!-- KPI Row: Bento Grid Style -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+<!-- KPI 1 -->
+<div class="bg-surface-container-low rounded-xl p-6 relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[0.625rem] font-bold uppercase tracking-[0.15em] text-on-surface-variant/70">Median Home Value Index</span>
+<span class="bg-secondary/10 text-secondary text-[10px] font-bold px-2 py-0.5 rounded-full border border-secondary/20">+1.2%</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-extrabold headline text-white">$354,820</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-2">Adjusted for regional inflation metrics</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-transparent opacity-30"></div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-low rounded-xl p-6">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[0.625rem] font-bold uppercase tracking-[0.15em] text-on-surface-variant/70">Market Trend (YOY)</span>
+<span class="text-secondary flex items-center gap-0.5 text-xs font-bold">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                            8.4%
+                        </span>
+</div>
+<div class="flex items-end gap-1 h-12">
+<!-- Mini Bar Chart -->
+<div class="flex-1 bg-primary/20 h-4 rounded-sm transition-all group-hover:h-6"></div>
+<div class="flex-1 bg-primary/30 h-6 rounded-sm"></div>
+<div class="flex-1 bg-primary/40 h-8 rounded-sm"></div>
+<div class="flex-1 bg-primary/60 h-10 rounded-sm"></div>
+<div class="flex-1 bg-primary/80 h-7 rounded-sm"></div>
+<div class="flex-1 bg-primary h-12 rounded-sm"></div>
+<div class="flex-1 bg-primary/90 h-11 rounded-sm"></div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-low rounded-xl p-6">
+<span class="text-[0.625rem] font-bold uppercase tracking-[0.15em] text-on-surface-variant/70 block mb-4">Top Appreciation ZIP Codes</span>
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium text-on-surface">43215 (Columbus, OH)</span>
+<span class="text-secondary text-sm font-bold">+18.2%</span>
+</div>
+<div class="flex justify-between items-center opacity-70">
+<span class="text-sm font-medium text-on-surface">30318 (Atlanta, GA)</span>
+<span class="text-secondary text-sm font-bold">+14.5%</span>
+</div>
+<div class="flex justify-between items-center opacity-50">
+<span class="text-sm font-medium text-on-surface">78704 (Austin, TX)</span>
+<span class="text-secondary text-sm font-bold">+12.1%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Central Map Section -->
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-8 mb-10">
+<!-- Map Visualization (Large) -->
+<div class="xl:col-span-3 bg-surface-container-low rounded-xl overflow-hidden relative border border-outline-variant/10 min-h-[500px]">
+<div class="absolute top-6 left-6 z-10">
+<h3 class="text-lg font-bold headline text-white">State-Wise Value Trends</h3>
+<p class="text-xs text-on-surface-variant">Topographic heatmap of equity growth</p>
+</div>
+<!-- Map Background -->
+<div class="absolute inset-0 bg-[#0c0e11]" style="background-image: radial-gradient(circle at 50% 50%, #1e2023 0%, #0c0e11 100%);">
+<!-- Placeholder for Map Visual - Using high-contrast dark topo feel -->
+<div class="w-full h-full opacity-40 mix-blend-screen" data-alt="abstract dark topographic map silhouette with glowing nodes and digital connection lines in deep blue and teal" data-location="USA" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBc5n0ax7pMqJMOxg7ui4akTcIKUarV19KzGwQKvjw2ztUwJBV6yq--GzesKwEeVVopSzX6UduyKvW0JsDhdHFc1munGMRIInVZYAKbTQ0-tbco3whb44W92M6CJfpNaIn1GTfF0uJF1XnuedD1rMSaKbvFVS6zO7XxNak8qlKIiUSY3b0WIsDa73GF5Na2--2IfqG5aP5_lLZRJH43SLCxHpFOA7j7r_Vf9A0I0My-WvDTTRhjMwKy07jj4XYi75secV7BUwlg3-4'); background-size: cover; background-position: center;">
+</div>
+</div>
+<!-- Tooltip Simulation -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+<div class="bg-surface-container-highest p-4 rounded-lg shadow-2xl border border-primary/20 glass-panel">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Market: Ohio</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase">Volatility</p>
+<p class="text-sm font-bold">Low (2.1%)</p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase">Demand</p>
+<p class="text-sm font-bold text-secondary">High</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Legend -->
+<div class="absolute bottom-6 right-6 bg-surface-container p-3 rounded-lg border border-outline-variant/20">
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-2">Growth Intensity</p>
+<div class="flex items-center gap-2">
+<span class="text-[10px] text-on-surface-variant">0%</span>
+<div class="w-32 h-1.5 rounded-full bg-gradient-to-r from-[#1a1c1f] via-primary-container to-secondary"></div>
+<span class="text-[10px] text-on-surface-variant">25%+</span>
+</div>
+</div>
+</div>
+<!-- Side Chart -->
+<div class="xl:col-span-1 bg-surface-container-low rounded-xl p-6 border border-outline-variant/10">
+<h3 class="text-sm font-bold headline text-white mb-6">Regional Growth Forecast</h3>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-xs font-medium text-on-surface">Midwest</span>
+<span class="text-xs font-bold text-secondary">+12.4%</span>
+</div>
+<div class="w-full h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[62%] rounded-full shadow-[0_0_8px_rgba(102,217,204,0.3)]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-xs font-medium text-on-surface">South</span>
+<span class="text-xs font-bold text-primary">+18.9%</span>
+</div>
+<div class="w-full h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[85%] rounded-full shadow-[0_0_8px_rgba(186,195,255,0.3)]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-xs font-medium text-on-surface">West</span>
+<span class="text-xs font-bold text-tertiary">+7.2%</span>
+</div>
+<div class="w-full h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[35%] rounded-full shadow-[0_0_8px_rgba(85,215,237,0.3)]"></div>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant/10">
+<p class="text-[11px] leading-relaxed text-on-surface-variant italic">
+                                "The Midwest maintains the highest stability-to-growth ratio for Q3 projections."
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Deep Dive Table Section -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/10">
+<div class="p-6 border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="text-lg font-bold headline text-white">Market Cluster Deep Dive</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container/50">
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Market Region</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-right">Current ZHVI</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-right">YOY Change</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Inventory Level</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-center">Market Health</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Austin-Round Rock, TX</p>
+<p class="text-[11px] text-on-surface-variant">South Region</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-medium">$562,400</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-bold text-secondary">+12.4%</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1.5 bg-surface-container rounded-full max-w-[100px]">
+<div class="h-full bg-primary w-[30%] rounded-full"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-bold">Low</span>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="px-3 py-1 rounded-full bg-secondary-container/20 text-secondary text-[10px] font-black tracking-wider uppercase border border-secondary/20">Strong Buy</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant hover:text-white"><span class="material-symbols-outlined">more_horiz</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Columbus, OH</p>
+<p class="text-[11px] text-on-surface-variant">Midwest Region</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-medium">$298,150</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-bold text-secondary">+8.9%</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1.5 bg-surface-container rounded-full max-w-[100px]">
+<div class="h-full bg-primary w-[65%] rounded-full"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-bold">Med</span>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="px-3 py-1 rounded-full bg-tertiary-container/20 text-tertiary text-[10px] font-black tracking-wider uppercase border border-tertiary/20">Growth</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant hover:text-white"><span class="material-symbols-outlined">more_horiz</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Raleigh-Durham, NC</p>
+<p class="text-[11px] text-on-surface-variant">South Region</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-medium">$415,800</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-bold text-secondary">+15.2%</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1.5 bg-surface-container rounded-full max-w-[100px]">
+<div class="h-full bg-primary w-[15%] rounded-full"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-bold">Crit</span>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="px-3 py-1 rounded-full bg-primary-container/20 text-primary text-[10px] font-black tracking-wider uppercase border border-primary/20">Hot Market</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant hover:text-white"><span class="material-symbols-outlined">more_horiz</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-outline-variant/10 text-center">
+<button class="text-xs font-bold text-primary hover:text-on-primary-container transition-colors uppercase tracking-[0.2em]">View All 428 Clusters</button>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB Suppression: This is a focused dashboard, no generic FAB needed -->
+</body></html>

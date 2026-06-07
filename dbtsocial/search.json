@@ -1,0 +1,230 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Mistral Cloud Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "web": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-28T07:14:39.302Z",
+  "id": "C24iMvaLu21wtiXU",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "search",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "topic"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -220,
+        40
+      ],
+      "id": "cc254cd2-e39c-451e-ab9c-0a792fbbee1e",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "model": "mistral-small-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        340
+      ],
+      "id": "bcfe19ae-39d4-4d37-90fb-7fec4f04e741",
+      "name": "Mistral Cloud Chat Model",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "k9FknrnRcIKYNX7T",
+          "name": "Mistral Cloud account 2 dbt rn"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9da7178b-a936-49ff-b433-140ae2a70cd3",
+              "name": "output",
+              "value": "=title:{{ $json.search_results[0].title }} and summary:{{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        360,
+        40
+      ],
+      "id": "0304065f-1b19-4d8c-a426-5ee18ec2569a",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "content": "search blogs and news articles for give user topics\n(uses tavily for web search)",
+        "height": 720,
+        "width": 780,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -280,
+        -180
+      ],
+      "typeVersion": 1,
+      "id": "41d9d2db-0901-4eca-bf74-04f1ebdbf961",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.topic }}",
+        "options": {
+          "systemMessage": "# Overview\nYou are an AI web scraper and reference collector.  \nYour job is to extract the most relevant and recent and latest information from the internet based on the user’s query.\n\n## Tools\nweb - Use this to search the internet and collect reliable, real-time reference content.\n\n## Instructions\n- Your objective is to extract the **top 10 most recent news stories or updates** related to the **user query**.\n- Use deep and comprehensive search (not surface-level).\n- Use the `web` tool with advanced parameters to get high-quality, up-to-date results.\n\n-IMPORTANT:\n- Do not generate generic or vague content.\n- Use recent, real-world trends (from articles,Trends etc.) search for latest trends and news.\n- give  **catchy, focused, and business-useful** data only.\n- Assume your audience is a busy founder, product manager, or ops lead.\n\nWhen crafting the post:\n- Use the current topic to anchor the post\n- Highlight what’s new, surprising, or valuable and informative\n- Always keep the message tight and punchy (600 characters max)\n\n\n\n## Tool Format\nUse the `web` tool in the following format:\n\n```json\n{\n  \"query\": \"{query}\",\n  \"topic\": \"general\",\n  \"search_depth\": \"advanced\",\n  \"max_results\": 20,\n  \"include_answer\": true,\n  \"include_raw_content\": false,\n  \"include_images\": false,\n  \"include_image_descriptions\": false,\n  \"include_domains\": [],\n  \"exclude_domains\": [\"\"]\n}\n\n##OUTPUT \ntopic  and its summary withs and stats and trends \n\nexample {\nExciting news! The USDA is embracing the power of intelligent automation to streamline processes and enhance efficiency. By leveraging AI and automation, they're revolutionizing the way they do business. This move is a game-changer, paving the way for increased productivity and improved services. It's amazing to see how technology is transforming the landscape of government operations. The USDA's commitment to innovation is truly commendable, and it's a testament to the potential of AI in the public sector. This step not only drives progress within the USDA but also sets a precedent for other government agencies to explore similar advancements. Kudos to the USDA for embracing intelligent automation and setting a new standard for efficiency and effectiveness\n}\nsuch 2 or 3 news \n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        100,
+        640
+      ],
+      "id": "9dc66aaa-cec0-42db-a220-6e67241f2283",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "toolDescription": "search on internet",
+        "method": "POST",
+        "url": "https://api.tavily.com/search",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Authorization",
+              "valueProvider": "fieldValue",
+              "value": "Bearer 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"
+            },
+            {
+              "name": "Content-Type"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "model",
+        "optimizeResponse": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        360,
+        280
+      ],
+      "id": "41bf16d9-de35-4d16-a3a0-a59d9a173ee1",
+      "name": "web"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"sonar\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Be precise and concise.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \" {{ $json.topic }}\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        60,
+        40
+      ],
+      "id": "ae54163c-a181-4308-9bbf-4e245f4a097a",
+      "name": "HTTP Request"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-31T11:38:43.000Z",
+  "versionId": "3ce38f17-93ea-4c8b-aa21-fed03e6afff2"
+}

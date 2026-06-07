@@ -1,0 +1,1306 @@
+{
+  "name": "Bill forwarding Automation (Property Owners)",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {
+          "readStatus": "unread"
+        }
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1440,
+        320
+      ],
+      "id": "7fba8a90-42ef-47f0-89f7-086fb81fb201",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eh0YVewpxArYp75F",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "attachment_0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -1248,
+        640
+      ],
+      "id": "9f50a2b4-8927-4a40-91dd-e82e2ab93c0e",
+      "name": "Extract text from File",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1t6Qy9Uo8jYaP_m2dsw6QQjHAZN-DfZX8BpKMh6RfPVk",
+          "mode": "list",
+          "cachedResultName": "KentonBill",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1t6Qy9Uo8jYaP_m2dsw6QQjHAZN-DfZX8BpKMh6RfPVk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1t6Qy9Uo8jYaP_m2dsw6QQjHAZN-DfZX8BpKMh6RfPVk/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Water bill Account Number ",
+              "lookupValue": "={{ $json.message.content['Account NUMBER'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        128,
+        544
+      ],
+      "id": "97e161ca-d58e-46d0-a3f8-0dd1528a7249",
+      "name": "Get tenant's info",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "KES2gLDr1BvnT6pf",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a professional accountant assistant.\n\nYour task is to analyze the text parsed from the water bill and extract the Property Address, Property owner's name, due date and due amount,billing date and account number also check if its ongoing bill.\n\n\nTOOl\nDate & Time - get current date \n\ncheck if billing date is of this or last two month use Date & Time tool output than with billing date if is of this month its ongoing.\n\nReturn the information in a JSON like this:\n{\n\"Property_address\": \"[ADDRESS]\",\n\"Property_owner\": \"[owner's FULL NAME]\",\n\"Due_date\":\"[date]\",\n\"Due_amount\":\"[amount]\"\n\"Account NUMBER\":\"[number]\"without any leading zero's\n\"BILLING DATE\":\"[date]\"\n\"BILLING Status\":\"[ongoing/old]\"\n}\n\nReturn the information in uppercase\n\nExample:\n{\n\"Property_address\": \"309 S WAYNE ST, KENTON, OH\",\n\"Property_owner\": \"David Luis\",\n\"Due_date\":\"16/07/2025\",\n\"Due_amount\":\"315.89\"\n\"Account NUMBER\":\"6734002\"\n\"BILLING DATE\":\" FROM 06/04/2025 TO 07/01/2025 \"\n\"BILLING Status\":\"ongoing\"\n}\n\nHere's the text from the bill:\n{{ $('Extract text from File').item.json.text }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -496,
+        528
+      ],
+      "id": "dee17a20-cf24-49fc-bf85-13fe5dada2a1",
+      "name": "Analyze water bill",
+      "credentials": {
+        "openAiApi": {
+          "id": "xpX2aJt7IGsuLSso",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a professional accountant assistant.\n\nYour task is to analyze the text parsed from the electricity and gas bill and extract the Property Address, Property owner's name, due date and due amount.\n\n\nTOOl\nDate & Time - get current date \n\nuse Date & Time tool output   check if billing date is within  last 4 months set it as  ongoing\n\n\n\nReturn the information in a JSON like this:\n{\n\"Property_address\": \"[ADDRESS]\",\n\"Property_owner\": \"[owner's FULL NAME]\",\n\"Due_date\":\"[date]\",\n\"Due_amount\":\"[amount]\"\n\"Account NUMBER\":\"[number]\"without any leading zero's\n\"BILLING DATE\":\"[date]\"\n\"BILLING Status\":\"[ongoing/old]\"\n}\n\nReturn the address in uppercase\n\nExample:\n{\n\"Property_address\": \"309 S WAYNE ST, KENTON, OH\",\n\"Property_owner\": \"David Luis\",\n\"Due_date\":\"16/07/2025\",\n\"Due_amount\":\"315.89\"\n\"Account NUMBER\":\"6734002\"\n\"BILLING DATE\":\" FROM 06/04/2025 TO 07/01/2025 \"\n\"BILLING Status\":\"ongoing\"\n}\n\nHere's the text from the bill:\n{{ $('Extract text from File').item.json.text }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -480,
+        768
+      ],
+      "id": "d44f305b-2b13-472e-a33d-429a5cf73974",
+      "name": "Analyze electricity & gas bill",
+      "credentials": {
+        "openAiApi": {
+          "id": "xpX2aJt7IGsuLSso",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "from": "(855) 970-4808",
+        "to": "={{ $json['Tenant Phone '] }}",
+        "message": "=Hey  {{ $json['Tenant Name'] }},\n\nI've got a new {{ $('Get bill type').item.json.message.content.bill_type == \"water\" ? \"water bill\" : \"gas and electricity bill\" }} here.\nAmount due: ${{ $('Analyze water bill').item.json.message.content.Due_amount }}\nDue date: {{ $('Analyze water bill').item.json.message.content.Due_date }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        304,
+        544
+      ],
+      "id": "b76a29f8-1256-48d0-9332-5cd3b53cd8c2",
+      "name": "Send reminder",
+      "credentials": {
+        "twilioApi": {
+          "id": "Puq4hRlzTYKBpnqD",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "967d7736-579e-4003-9204-4b7e6e6cc87e",
+              "leftValue": "={{ $json.message.content.is_home_bill }}",
+              "rightValue": "Yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -928,
+        320
+      ],
+      "id": "a39655b2-6c17-4611-9d67-9706a87399ef",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a professional email analyst.\n\nYour task is to read the sender, subject line and email content and decide wether the email is notifiyng the owner about the new bill or not. \n\nThe email information:\n{{ $json.headers.from }}\n{{ $json.headers.subject }}    or {{ $json.Subject }}\nContent: {{ $json.text }}\n\nReturn the result in JSON:\n{\n\"is_home_bill\": \"Yes\"/\"No\"\n}\n\nThe bills you should focus on are water bill, gas and electricity from AEP bills, if it's something else – return \"No\".\n\nif its a bill is home_bill is yes\n\nIf the email is notifying the user about about water, gas or elictricity bill, return \"Yes\"."
+            },
+            {
+              "content": "=The email information:\n{{ $json.headers.from }}\n{{ $json.headers.subject }} or {{ $json.Subject }}\nContent: {{ $json.text }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -1264,
+        320
+      ],
+      "id": "c6ab5689-a1fd-413a-90fd-4a2192e1ee6c",
+      "name": "Analyze incoming email",
+      "credentials": {
+        "openAiApi": {
+          "id": "xpX2aJt7IGsuLSso",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Input email\nAnalyzing every incoming email to find ones that notify user about water, gas or electricity bill.",
+        "height": 260,
+        "width": 760,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1488,
+        224
+      ],
+      "id": "b83d0a07-9c48-4ce1-83ba-207a461cccef",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Bill type\nDownloading attachments and analyzing them to find out what kind of bill is this",
+        "height": 280,
+        "width": 880,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1488,
+        544
+      ],
+      "id": "d0a6deeb-e2e1-4193-9072-800f9a644e81",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Reading the bill\nAnalyzing the bill to get due amount, due date, property address and owner's name.\n\n",
+        "height": 500,
+        "width": 340,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -528,
+        416
+      ],
+      "id": "1eca575c-40fc-4d46-ae58-c27ca12f71e1",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Send message\nSending the message to the tenant and updating the database\n",
+        "height": 500,
+        "width": 640,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        16,
+        448
+      ],
+      "id": "81cb21b3-3a0f-44e0-b57a-5d34c75eeb20",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "simple": false,
+        "options": {
+          "downloadAttachments": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -1440,
+        640
+      ],
+      "id": "14b73361-a191-4e4b-bc40-0aa9596076fa",
+      "name": "Download attachment1",
+      "webhookId": "12ee04ed-9e4a-4366-bd84-820255b1f22d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eh0YVewpxArYp75F",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1t6Qy9Uo8jYaP_m2dsw6QQjHAZN-DfZX8BpKMh6RfPVk",
+          "mode": "list",
+          "cachedResultName": "KentonBill",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1t6Qy9Uo8jYaP_m2dsw6QQjHAZN-DfZX8BpKMh6RfPVk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l0HDtFUbNvaHeTjGtQyw69lnzpVsOMo1otik5J2QGlg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Amount Water Bill": "={{ $('Analyze water bill').item.json.message.content.Due_amount }}",
+            "Water Bill Text Status": "sent",
+            "Water bill Account Number ": "={{ $('Analyze water bill').item.json.message.content['Account NUMBER'] }}",
+            "Water Bill Billing Date ": "={{ $('Analyze water bill').item.json.message.content['BILLING DATE'] }}",
+            "Last processed for Water Bill": "={{ DateTime.now().toFormat('yyyy-MM-dd') }}"
+          },
+          "matchingColumns": [
+            "Water bill Account Number "
+          ],
+          "schema": [
+            {
+              "id": "Property address",
+              "displayName": "Property address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Tenant Name",
+              "displayName": "Tenant Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Tenant Phone ",
+              "displayName": "Tenant Phone ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Tenant Email ",
+              "displayName": "Tenant Email ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Property owner ",
+              "displayName": "Property owner ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Amount Water Bill",
+              "displayName": "Amount Water Bill",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Water bill Account Number ",
+              "displayName": "Water bill Account Number ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Water Bill Billing Date ",
+              "displayName": "Water Bill Billing Date ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Water Bill Text Status",
+              "displayName": "Water Bill Text Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Last processed for Water Bill",
+              "displayName": "Last processed for Water Bill",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Amount AEP Electric Bill",
+              "displayName": "Amount AEP Electric Bill",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "AEP Account Number ",
+              "displayName": "AEP Account Number ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "AEP Billing Date ",
+              "displayName": "AEP Billing Date ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "AEP Bill text Status",
+              "displayName": "AEP Bill text Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Last processed for AEP bill",
+              "displayName": "Last processed for AEP bill",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        480,
+        544
+      ],
+      "id": "b60479e5-662d-4f08-9695-e6a81a700438",
+      "name": "Update water bill info",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "KES2gLDr1BvnT6pf",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are a professional document analyst.\n\nYour task is to analyze the email content along with the text from the attached document.\nThere are 2 types of documents:\n1 - Water bill. A bill for water received by a property owner.\n2 - Electricity and Gas bill (usually from AEP) A bill for electricity and gas received by a property owner.\n\nFor the context:\nLater down the line the due date and due amount will be extracted from the document. You job is to figure out wether the bill is for water or electricity & gas.\n\nReturn your decision in JSON format:\n{\n\"bill_type\": \"type\"\n\"reason\": \"resont\"\n}\n\nThe bill_type must be either \"water\" or \"electricity_and_gas\", depending on the content.\n\nI need you to add your reasoning in the \"reason\" field."
+            },
+            {
+              "content": "=Here's the email content:\nFROM: {{ $('Gmail Trigger').item.json.headers.from.slice(6) }}\nSUBJECT: {{ $('Gmail Trigger').item.json.headers.subject.slice(9) }}\nCONTENT:{{ $('Gmail Trigger').item.json.text }}\n\nDocument content:\n{{ $json.text }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "topP": 0.8
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -1056,
+        640
+      ],
+      "id": "1deee58c-3fce-4aa8-acbc-fcada5abc797",
+      "name": "Get bill type",
+      "credentials": {
+        "openAiApi": {
+          "id": "xpX2aJt7IGsuLSso",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.content.bill_type }}",
+                    "rightValue": "water",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "ebf22d40-8e90-4fd6-960b-66817deaef49"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Water_bill"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ae7beee8-58b2-42be-acda-8df6e20c0221",
+                    "leftValue": "={{ $json.message.content.bill_type }}",
+                    "rightValue": "electricity_and_gas",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Elec & gas bill"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -720,
+        640
+      ],
+      "id": "dc32591d-c0a5-4000-a94b-5548dcab7cdf",
+      "name": "Bill type"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1t6Qy9Uo8jYaP_m2dsw6QQjHAZN-DfZX8BpKMh6RfPVk",
+          "mode": "list",
+          "cachedResultName": "KentonBill",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1t6Qy9Uo8jYaP_m2dsw6QQjHAZN-DfZX8BpKMh6RfPVk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l0HDtFUbNvaHeTjGtQyw69lnzpVsOMo1otik5J2QGlg/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "AEP Account Number ",
+              "lookupValue": "={{ $json.message.content['Account NUMBER'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        128,
+        752
+      ],
+      "id": "05515db0-47dc-4018-ba38-d76d86e910ef",
+      "name": "Get tenant's info1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "KES2gLDr1BvnT6pf",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "from": "(855) 970-4808",
+        "to": "={{ $json['Tenant Phone '] }}",
+        "message": "=Hey {{ $json['Tenant Name'] }},\n\nI've got a new {{ $('Get bill type').item.json.message.content.bill_type == \"water\" ? \"water bill\" : \"gas and electricity bill\" }} here.\nAmount due: ${{ $('Analyze electricity & gas bill').item.json.message.content.Due_amount }}\n\nDue date: {{ $('Analyze electricity & gas bill').item.json.message.content.Due_date }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        304,
+        752
+      ],
+      "id": "5f441074-6072-4adc-ad9c-a8823f0f45b4",
+      "name": "Send reminder1",
+      "credentials": {
+        "twilioApi": {
+          "id": "Puq4hRlzTYKBpnqD",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1t6Qy9Uo8jYaP_m2dsw6QQjHAZN-DfZX8BpKMh6RfPVk",
+          "mode": "list",
+          "cachedResultName": "KentonBill",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1t6Qy9Uo8jYaP_m2dsw6QQjHAZN-DfZX8BpKMh6RfPVk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l0HDtFUbNvaHeTjGtQyw69lnzpVsOMo1otik5J2QGlg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "AEP Account Number ": "={{ $('Analyze electricity & gas bill').item.json.message.content['Account NUMBER'] }}",
+            "Amount AEP Electric Bill": "={{ $('Analyze electricity & gas bill').item.json.message.content.Due_amount }}",
+            "AEP Billing Date ": "={{ $('Analyze electricity & gas bill').item.json.message.content['BILLING DATE'] }}",
+            "AEP Bill text Status": "sent",
+            "Last processed for AEP bill": "={{ DateTime.now().toFormat('yyyy-MM-dd') }}"
+          },
+          "matchingColumns": [
+            "AEP Account Number "
+          ],
+          "schema": [
+            {
+              "id": "Property address",
+              "displayName": "Property address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Tenant Name",
+              "displayName": "Tenant Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Tenant Phone ",
+              "displayName": "Tenant Phone ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Tenant Email ",
+              "displayName": "Tenant Email ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Property owner ",
+              "displayName": "Property owner ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Amount Water Bill",
+              "displayName": "Amount Water Bill",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Water bill Account Number ",
+              "displayName": "Water bill Account Number ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Water Bill Billing Date ",
+              "displayName": "Water Bill Billing Date ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Water Bill Text Status",
+              "displayName": "Water Bill Text Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Last processed for Water Bill",
+              "displayName": "Last processed for Water Bill",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Amount AEP Electric Bill",
+              "displayName": "Amount AEP Electric Bill",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "AEP Account Number ",
+              "displayName": "AEP Account Number ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "AEP Billing Date ",
+              "displayName": "AEP Billing Date ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "AEP Bill text Status",
+              "displayName": "AEP Bill text Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Last processed for AEP bill",
+              "displayName": "Last processed for AEP bill",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        480,
+        752
+      ],
+      "id": "72223db1-34da-4c69-8deb-4407defe0f5d",
+      "name": "Update gas & electricity bill status",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "KES2gLDr1BvnT6pf",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTimeTool",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        656
+      ],
+      "id": "d423cf24-a35f-4cbe-be0f-08d43169a573",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7eb72e02-2547-45be-bf92-b5e61280529b",
+              "leftValue": "={{ $json.message.content['BILLING Status'] }}",
+              "rightValue": "ongoing",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -128,
+        544
+      ],
+      "id": "6414c06c-16bf-4b3c-a956-e9f07c9cd5a9",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7eb72e02-2547-45be-bf92-b5e61280529b",
+              "leftValue": "={{ $json.message.content['BILLING Status'] }}",
+              "rightValue": "ongoing",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -128,
+        768
+      ],
+      "id": "09dcdd3c-fc64-4ea3-ba8a-aafacdf57f23",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_2895021275192451327"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -1248,
+        960
+      ],
+      "id": "a48e78ac-0a05-4485-8bf7-fd720797b5bf",
+      "name": "Add label to message",
+      "webhookId": "ec52f329-3a6d-4abd-942b-fb46a0e9cf95",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eh0YVewpxArYp75F",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsRead",
+        "messageId": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -992,
+        960
+      ],
+      "id": "88339503-907b-4e60-a4ae-9abc9fdf20e9",
+      "name": "Mark a message as read",
+      "webhookId": "17b117e3-d2a4-4a55-ab76-ed5ff2a6d692",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eh0YVewpxArYp75F",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## SET LABEL AND MARK AS READ \nOnce bill is downloaded it assigned bill label and  marked as read",
+        "height": 304,
+        "width": 544,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1280,
+        848
+      ],
+      "typeVersion": 1,
+      "id": "9db0ed3f-3231-4bdc-980f-9255ebcf2604",
+      "name": "Sticky Note5"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Analyze incoming email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract text from File": {
+      "main": [
+        [
+          {
+            "node": "Get bill type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get tenant's info": {
+      "main": [
+        [
+          {
+            "node": "Send reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze water bill": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze electricity & gas bill": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send reminder": {
+      "main": [
+        [
+          {
+            "node": "Update water bill info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Download attachment1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze incoming email": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download attachment1": {
+      "main": [
+        [
+          {
+            "node": "Extract text from File",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Add label to message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get bill type": {
+      "main": [
+        [
+          {
+            "node": "Bill type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bill type": {
+      "main": [
+        [
+          {
+            "node": "Analyze water bill",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Analyze electricity & gas bill",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get tenant's info1": {
+      "main": [
+        [
+          {
+            "node": "Send reminder1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send reminder1": {
+      "main": [
+        [
+          {
+            "node": "Update gas & electricity bill status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "ai_tool": [
+        [
+          {
+            "node": "Analyze water bill",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Analyze electricity & gas bill",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Get tenant's info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Get tenant's info1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update water bill info": {
+      "main": [
+        []
+      ]
+    },
+    "Update gas & electricity bill status": {
+      "main": [
+        []
+      ]
+    },
+    "Add label to message": {
+      "main": [
+        [
+          {
+            "node": "Mark a message as read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4e131f74-3146-4d51-acda-fd2b76cbb49e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e62e4c8d34f9b7caca345302abc9938a1b95fc4af9e61505f9ef08974f346659"
+  },
+  "id": "QI3ZW7ltdVC27ACX",
+  "tags": [
+    {
+      "createdAt": "2025-07-28T19:08:21.551Z",
+      "updatedAt": "2025-07-28T19:08:21.551Z",
+      "id": "FUlRT1i1pe8HcL5S",
+      "name": "Client Project"
+    }
+  ]
+}

@@ -1,0 +1,586 @@
+{
+  "active": true,
+  "connections": {
+    "Create Image": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "banner Image": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ref": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "search": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "scheduler": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "template": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date": {
+      "ai_tool": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-31T13:50:00.842Z",
+  "id": "YtsEfenjpbkxPwbs",
+  "isArchived": false,
+  "meta": null,
+  "name": "chat",
+  "nodes": [
+    {
+      "parameters": {
+        "name": "createImage",
+        "description": "Call this tool to create an image. ",
+        "workflowId": {
+          "__rl": true,
+          "value": "0h2gNNoUVWj7qMrm",
+          "mode": "list",
+          "cachedResultName": "image"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('post', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "post"
+          ],
+          "schema": [
+            {
+              "id": "post",
+              "displayName": "post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        280,
+        400
+      ],
+      "id": "2b928a78-f369-4329-9236-1fea23a0eb43",
+      "name": "Create Image"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.body.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -240,
+        400
+      ],
+      "id": "39364259-4bed-4053-a9da-2c0b09de81e4",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "description": "Use the tool to think about something. It will not obtain new information or change the database."
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        400
+      ],
+      "id": "b32ae7c4-68cb-4440-868e-e3e358e1b758",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "=You are a LinkedIn AI Agent making linkedin post , banner ,image and sceduling them also guide user\n\nTools:\n• ref — fetch 5–7 latest AI articles \n• search — fetch  article on a user topic  \n• template — generate post copy from a template \n• createImage — generate a standard post image \n• bannerImage — generate a banner-style image \n• scheduler — schedule the post  \n• think - to think about what to choose\n• Date - to get current date and time\n\n\nTemplates (number → name):\n1. Educational  \n2. Promotional  \n3. Discussion  \n4. Case Study & Testimonial  \n5. News  \n6. Personal  \n7. blogs\n\nWorkflow:\n\n1. Classify Request use 'think' tool to decide which case it belong\n - if user say (“Make a post”,or something about making a post etc.) → CASE 1()\n - If say \"“Make a LinkedIn post using the (template name) template”\" → CASE 2\n  - if user say Make LinkedIn post based on this article\" and gives title + content(title + summary) → CASE 3 .\n\n2. CASE 1: Generic Request \n   a. Call `ref`  tool, show articles,5 or 6 to user ask “Pick one?” Confirm.  \n   b. If no, ask “Your topic?” → call `search`, show output in title and summary & confirm that .  \n   c. Ask “Use a template?” Show 1–7 templates than  Call `template` tool with {template_number, title, summary}.   \n\n3. CASE 2: Template Mentioned**  \n   a. Map template name to number.  \n   b. If template ∈ {1,3,5,}:  \n      • Call `ref` tool, show  titles and summarys, ask “Use one of these?” Confirm choice.   \n      • Then call `template` tool with {template_number, title, summary}.  \n   c. If template ∈ {2,4,6}:  \n      • Ask “Provide a title and summary/message.”  \n      • Confirm inputs.  \n      • Call `template` with {template_number, title,summary}.\n   d. If template ∈ {7}:\n      • Call `template` with {template_number,title,summary} that user provided.\n\n\n4. CASE 3: Article Provided\n   a. Read back title + summary, ask “Is this correct?”  \n   b. Ask “Apply a template?” Show 1–7, confirm.  \n   c. Call `template` with {template_number, title, summary}.\n\n\n5. **Post Review**  \n   • Show generated post, ask “Is this exactly as you want it?”  \n   • If edits: collect feedback, confirm, resend to `template`.\n\n6. **Image Selection**  \n   • Ask “Banner, standard image,  or upload image?” \n   • user can also upload image so in response if you get markdown url similar to this ( ![Screenshot (194).png](https://qpmrmtlfwlixlplwpllz.supabase.co/storage/v1/object/public/dbtdigi/uploads/1754044209978-oz9wsnm.png))  go to **Scheduling** step.\n   • if choice  is given Banner or standard image Call the chosen tool (`bannerImage`/`createImage`/no image`) with post text.  \n   • Show image_markdown, ask if image is “good?”\n  \n\n7. **Scheduling**  \n   • Ask “When should this post be scheduled?” \n   • Convert to MM, DD, YYYY and 24h HH:MM formats if year is not given its 2025.\n   • if user say post now use 'Date' tool to get current date and time than send scheduler.\n   • Confirm: “Schedule for MM, DD, YYYY at HH:MM?”  \n   • send post, image_markdown and time and date  to `scheduler` tool.\n   • Confirm “Your post is scheduled!”\n\n**Guardrails:**  \n– Never proceed without user’s explicit “Yes, that’s correct.”  \n– Echo back every critical input.  \n– Preserve all formatting, emojis, and line breaks.  \n– Do not modify approved content.\n-Re‑prompt any missing/invalid title, summary, template choice, or date/time (provide examples)"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -40,
+        -40
+      ],
+      "id": "8d4575ac-c8ee-4dc3-a16e-58887869c158",
+      "name": "LinkedIn Agent"
+    },
+    {
+      "parameters": {
+        "name": "bannerimage",
+        "description": "Call this get banner image",
+        "workflowId": {
+          "__rl": true,
+          "value": "jfWxo5yahoS0vUu5",
+          "mode": "list",
+          "cachedResultName": "banner"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('post', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "post"
+          ],
+          "schema": [
+            {
+              "id": "post",
+              "displayName": "post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        420,
+        440
+      ],
+      "id": "76b804b7-4c1a-40b2-8388-2645fe893315",
+      "name": "banner Image"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "JQ3HppfhdFaIbYoW",
+          "mode": "list",
+          "cachedResultName": "ref"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "topic": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('topic', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "topic"
+          ],
+          "schema": [
+            {
+              "id": "topic",
+              "displayName": "topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        120,
+        400
+      ],
+      "id": "d1d4e58b-3bd3-4b66-9404-e0bebaaed73f",
+      "name": "ref"
+    },
+    {
+      "parameters": {
+        "description": "search new article that user gave",
+        "workflowId": {
+          "__rl": true,
+          "value": "C24iMvaLu21wtiXU",
+          "mode": "list",
+          "cachedResultName": "search"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "topic": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('topic', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "topic"
+          ],
+          "schema": [
+            {
+              "id": "topic",
+              "displayName": "topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        400
+      ],
+      "id": "ac21f15e-d052-4f7f-b879-fc5a387389b6",
+      "name": "search"
+    },
+    {
+      "parameters": {
+        "description": "scheduling post for given date ",
+        "workflowId": {
+          "__rl": true,
+          "value": "WePdOwfufMGQ4jqJ",
+          "mode": "list",
+          "cachedResultName": "scheduler"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('post', ``, 'string') }}",
+            "image_markdown": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('image_markdown', ``, 'string') }}",
+            "time_of_posting": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('time_of_posting', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "post",
+              "displayName": "post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "image_markdown",
+              "displayName": "image_markdown",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "time_of_posting",
+              "displayName": "time_of_posting",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        440
+      ],
+      "id": "e892d885-b7c9-41ca-a888-e708f718e829",
+      "name": "scheduler"
+    },
+    {
+      "parameters": {
+        "description": "templates for different type of post",
+        "workflowId": {
+          "__rl": true,
+          "value": "2DUCSXheSy5taBOn",
+          "mode": "list",
+          "cachedResultName": "template"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "template": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('template', ``, 'number') }}",
+            "message ": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message_', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "summary ": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('summary_', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "template",
+              "displayName": "template",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            },
+            {
+              "id": "message ",
+              "displayName": "message ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "summary ",
+              "displayName": "summary ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        700,
+        440
+      ],
+      "id": "799c7c8d-05e3-4bf4-85b8-202055d48ed9",
+      "name": "template"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -360,
+        400
+      ],
+      "id": "1740fe84-17c6-4af8-8d6b-6b9d3ac034dc",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "BEMsaCWtnyqTUtIt",
+          "name": "OpenAi account 8 dbt digi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "get current date and time",
+        "includeTime": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Include_Current_Time', ``, 'boolean') }}",
+        "outputFieldName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Output_Field_Name', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTimeTool",
+      "typeVersion": 2,
+      "position": [
+        820,
+        460
+      ],
+      "id": "e022a964-1d53-4515-8b52-8b6c8bc540d7",
+      "name": "Date"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -520,
+        -40
+      ],
+      "id": "9c00f370-585d-4e0a-81a7-29366e570473",
+      "name": "When chat message received",
+      "webhookId": "ee6f6816-89e4-4b37-b1da-3f85af869061"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "7dd3232a-1926-4cef-84a3-7287b72c561a",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -280,
+        -40
+      ],
+      "id": "284e77ec-8bcc-43a6-a1f7-743aa70a1b6a",
+      "name": "Webhook",
+      "webhookId": "7dd3232a-1926-4cef-84a3-7287b72c561a"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "=You are a LinkedIn AI Agent making linkedin post , banner ,image and sceduling them also guide user\n\nTools:\n• ref — fetch 5–7 latest AI articles \n• search — fetch  article on a user topic  \n• template — generate post copy from a template \n• createImage — generate a standard post image \n• bannerImage — generate a banner-style image \n• scheduler — schedule the post  \n• think - to think about what to choose\n• Date - to get current date and time\n\n\nTemplates (number → name):\n1. Educational  \n2. Promotional  \n3. Discussion  \n4. Case Study & Testimonial  \n5. News  \n6. Personal  \n7. General\n\nWorkflow:\n\n1. Classify Request use 'think' tool to decide which case it belong\n - if user say (“Make a post”,or something about making a post etc.) → CASE 1()\n - If say \"“Make a LinkedIn post using the (template name) template”\" → CASE 2\n  - if user say Make LinkedIn post based on this article\" and gives title + content(title + summary) → CASE 3 .\n\n2. CASE 1: Generic Request \n   a. Call `ref`  tool, show articles,5 or 6 to user ask “Pick one?” Confirm.  \n   b. If no, ask “Your topic?” → call `search`, show output in title and summary & confirm that .  \n   c. Ask “Use a template?” Show 1–7 templates than  Call `template` tool with {template_number, title, summary}.   \n\n3. CASE 2: Template Mentioned**  \n   a. Map template name to number.  \n   b. If template ∈ {1,3,5,7}:  \n      • Call `ref` tool, show  titles and summarys, ask “Use one of these?” Confirm choice.   \n      • Then call `template` tool with {template_number, title, summary}.  \n   c. If template ∈ {2,4,6}:  \n      • Ask “Provide a title and summary/message.”  \n      • Confirm inputs.  \n      • Call `template` with {template_number, title,summary}.\n\n4. CASE 3: Article Provided**  \n   a. Read back title + summary, ask “Is this correct?”  \n   b. Ask “Apply a template?” Show 1–7, confirm.  \n   c. Call `template` with {template_number, title, summary}.\n\n\n5. **Post Review**  \n   • Show generated post, ask “Is this exactly as you want it?”  \n   • If edits: collect feedback, confirm, resend to `template`.\n\n6. **Image Selection**  \n   • Ask “Banner, standard image,  or none?”  \n   • Call the chosen tool (`bannerImage`/`createImage`/no image`) with post text.  \n   • Show image_markdown, ask if image is “good?”\n\n7. **Scheduling**  \n   • Ask “When should this post be scheduled?” \n   • Convert to MM, DD, YYYY and 24h HH:MM formats if year is not given its 2025.\n   • if user say post now use 'Date' tool to get current date and time than send scheduler.\n   • Confirm: “Schedule for MM, DD, YYYY at HH:MM?”  \n   • send post, image_markdown and time and date  to `scheduler` tool.\n   • Confirm “Your post is scheduled!”\n\n**Guardrails:**  \n– Never proceed without user’s explicit “Yes, that’s correct.”  \n– Echo back every critical input.  \n– Preserve all formatting, emojis, and line breaks.  \n– Do not modify approved content.\n-Re‑prompt any missing/invalid title, summary, template choice, or date/time (provide examples)"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -240,
+        680
+      ],
+      "id": "bb2ef8c3-2976-4174-8332-f8d4939aa9a5",
+      "name": "LinkedIn Agent1"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "rajeetcodeN",
+    "name": "n8n_backup"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-08-01T14:42:16.000Z",
+  "versionId": "b86da7b0-77fc-45e2-bec9-ca97955cd343"
+}
